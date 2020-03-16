@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="primary" class="title">{{ isLogin ? 'Login' : 'Signup'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background overlay padding">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3" size-lg="10" offset-lg="1">
+          <ion-list>
+            <ion-item *ngIf="!isLogin">
+              <ion-label position="floating">First Name</ion-label>
+              <ion-input type="text" ngModel name="firstname" 
+              required minlength="2"
+              #firstnameCtrl="ngModel"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!isLogin">
+              <ion-label position="floating">Last Name</ion-label>
+              <ion-input type="text" ngModel name="lastname" 
+              required minlength="2"
+              #lastnameCtrl="ngModel"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">E-Mail</ion-label>
+              <ion-input type="email" ngModel name="email" 
+              required email
+              #emailCtrl="ngModel"></ion-input>
+            </ion-item>
+            <ion-item line="none" *ngIf="!emailCtrl.valid && emailCtrl.touched">
+              <ion-label>Should be a valid email address</ion-label>
+            </ion-item>      
+            <ion-item *ngIf="!isLogin">
+              <ion-label>Country</ion-label>
+              <ion-select #countryCtrl="ngModel" ngModel name="country" cancelText="Cancel" okText="Okay!">
+                <ion-select-option value="United Kingdom">United Kingdom</ion-select-option>
+                <ion-select-option value="United States">United States</ion-select-option>                            
+                <ion-select-option value="others">Others</ion-select-option>            
+              </ion-select>
+            </ion-item>      
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" ngModel name="password"
+               required minlength="6"
+               #passwordCtrl="ngModel"></ion-input>
+            </ion-item>
+            <ion-item line="none" *ngIf="!passwordCtrl.valid && passwordCtrl.touched">
+              <ion-label>Should be a at least 6 characters long</ion-label>
+            </ion-item>
+            <ion-item *ngIf="!isLogin">
+              <ion-label position="floating">Confirm Password</ion-label>
+              <ion-input type="password" ngModel name="confirmpassword"
+               required minlength="6"
+               #confirmPasswordCtrl="ngModel"></ion-input>
+            </ion-item>            
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button type="button" color="primary" class="b1"
+           fill="clear" expand="block"
+           (click)="onSwitchAuthMode()">Switch to {{ isLogin ? 'Signup' : 'Login' }}</ion-button>
+          <ion-button type="submit" color="primary" class="b2"
+           expand="block"
+           [disabled]="!f.valid">
+            {{ isLogin ? 'Login' : 'Signup' }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+          <ion-card-subtitle><a href="/request-reset">Reset Password</a></ion-card-subtitle>
+        </ion-col>
+      </ion-row>
+    </ion-grid>  
+    <div class="ion-text-center">
+      <ion-spinner color="primary" *ngIf="isLoading"></ion-spinner>
+    </div>  
+  </form> 
+</ion-content>
+

@@ -1,0 +1,44 @@
+ion-col.first-column {
+    
+    @media only screen and (max-width: 768px) {
+        display: none;        
+    }
+}
+
+ion-row.first-column {
+    display: block;
+
+    @media only screen and (min-width: 576px) {
+        display: none;        
+    }
+       
+}
+
+ion-col.toHide {
+    
+    @media only screen and (max-width: 576px) {
+        display: none;        
+    }   
+}
+
+.modal-css {
+    --button-color: chartreuse;
+    background: chartreuse;
+}
+   
+ion-card-title {
+    font-family: 'Courier New';
+    font-weight: bolder;
+
+}
+
+ion-card-subtitle {
+    font-family: 'Courier New';
+}
+
+ion-icon {
+    color: crimson;
+}
+
+
+

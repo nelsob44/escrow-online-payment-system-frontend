@@ -1,0 +1,58 @@
+<ion-header translucent>
+  
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="medium" fill="solid" (click)="onCancel()">{{ closeButtonText }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item>      
+      <ion-row>                
+        <ion-col>                  
+            <ion-button (click)="onChooseStripe(itemName, itemPrice, currency, buyerName, connectionChannel, itemDescription, itemSerialNo, itemModelNo, imeiFirst, imeiLast)" color="success" expand="block">Pay with Credit/Debit Card</ion-button>                  
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>      
+      <ion-row>                
+        <ion-col>                  
+            <ion-button (click)="onChoosePaypal(itemName, itemPrice, currency, buyerName, connectionChannel, itemDescription, itemSerialNo, itemModelNo, imeiFirst, imeiLast)" color="primary" expand="block">Pay with Paypal</ion-button>                  
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+  
+  <div class="choosepayment-modal" #choosepaymentmodal>   
+    <ion-row>                
+      <ion-col>                  
+          <ion-button (click)="onChooseStripe(itemName, itemPrice, currency, buyerName, connectionChannel, itemDescription, itemSerialNo, itemModelNo, imeiFirst, imeiLast)" color="success" expand="block">Pay with Credit/Debit Card</ion-button>                  
+      </ion-col>
+    </ion-row>
+
+    <ion-row>                
+      <ion-col>                  
+          <ion-button (click)="onChoosePaypal(itemName, itemPrice, currency, buyerName, connectionChannel, itemDescription, itemSerialNo, itemModelNo, imeiFirst, imeiLast)" color="primary" expand="block">Pay with Paypal</ion-button>                  
+      </ion-col>
+    </ion-row>
+
+    <!-- <form #checkout="ngForm" (ngSubmit)="onSubmit(clientSecret, buyer, buyerEmail, itemPrice, intent_id, currency, realAmount, description)" class="checkout">
+      <div class="form-row">
+      <label for="card-info">Card Info</label>
+      <div id="card-info" #cardInfo></div>
+      <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div></div>
+      <ion-row>                
+        <ion-col>                  
+            <ion-button type="submit" color="success" expand="block">Pay{{' '}}{{currency}}{{' '}}{{amount/100}}</ion-button>                  
+        </ion-col>
+      </ion-row>
+    </form> -->
+          
+  </div>
+</ion-content>

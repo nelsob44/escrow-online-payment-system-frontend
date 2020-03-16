@@ -1,0 +1,61 @@
+<ion-header translucent>
+  
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="medium" fill="solid" (click)="onCancel()">{{ closeButtonText }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item>      
+      <ion-label>
+        <ion-card-title>Transaction Summary</ion-card-title>
+        <table>
+          <tr>
+            <td>
+              Payment Commission
+            </td>
+            <td>
+              {{currency | uppercase}}{{' '}}{{commission | number : '.2-2'}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Item Cost
+            </td>
+            <td>
+              {{currency | uppercase}}{{' '}}{{itemPrice | number : '.2-2'}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ion-card-title>Total Amount to Pay</ion-card-title>
+            </td>
+            <td>
+              <ion-card-title>{{currency | uppercase}}{{' '}}{{amount/100 | number : '.2-2'}}</ion-card-title>
+            </td>
+          </tr>
+        </table>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <div class="payment-modal" #paymentmodal>   
+
+    <form #checkout="ngForm" (ngSubmit)="onSubmit(clientSecret, buyer, buyerEmail, itemPrice, intent_id, currency, realAmount, description, seller_id, seller_email)" class="checkout">
+      <div class="form-row">
+      <label for="card-info">Card Info</label>
+      <div id="card-info" #cardInfo></div>
+      <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div></div>
+      <ion-row>                
+        <ion-col>                  
+            <ion-button type="submit" color="success" expand="block">Pay{{' '}}{{currency}}{{' '}}{{amount/100 | number : '.2-2'}}</ion-button>                  
+        </ion-col>
+      </ion-row>
+    </form>
+          
+  </div>
+</ion-content>

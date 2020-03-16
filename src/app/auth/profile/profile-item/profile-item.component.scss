@@ -1,0 +1,48 @@
+ion-col.first-column {
+    
+    @media only screen and (max-width: 768px) {
+        display: none;        
+    }
+}
+
+ion-row.first-column {
+    display: block;
+
+    @media only screen and (min-width: 576px) {
+        display: none;        
+    }
+       
+}
+
+ion-col.toHide {
+    
+    @media only screen and (max-width: 576px) {
+        display: none;        
+    }   
+}
+
+
+   
+ion-card-title {
+    
+    font-weight: bolder;
+
+}
+
+ion-item {
+    --padding-bottom: 1rem;
+    --padding-top: 2rem;
+}
+
+ion-avatar.avatar {
+    position: relative;
+    left: 1rem;
+}
+
+ion-icon {
+    color: rgb(201, 32, 102);
+}
+    
+
+
+

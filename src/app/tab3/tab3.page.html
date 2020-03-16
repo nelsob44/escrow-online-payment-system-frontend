@@ -1,9 +1,62 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>
-      Tab Three
+      My Items
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content class="ion-no-padding">
+  <ion-row>
+    <ion-col size="4" class="first-column">
+      <div style="background-color: rgb(255, 0, 191);">Categories of the many things to check</div>
+    </ion-col>
+    <ion-col size-sm="12" size-md="8" size-lg="8"> 
+      <form [formGroup]="form">
+        <ion-row>
+          <ion-col size-sm="12">
+            <ion-item>
+              <ion-label position="stacked">Enter the ID of item to search</ion-label>
+              <ion-buttons slot="end">
+                <ion-button (click)="onSearchItem()" color="primary">
+                  <ion-icon name="send"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+
+              <ion-input formControlName="itemId" minlength="1"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </form>
+          
+      <ion-list>
+        <ion-item-sliding *ngFor="let item of loadedItems">
+          <app-item [item]="item"></app-item>             
+          
+          <ion-item-options side="start">
+            <ion-item-option color="secondary" (click)="onEdit(item.id, slidingItem)">
+              <ion-icon name="create" slot="icon-only"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding> 
+                   
+      </ion-list>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="prevPage()" color="primary" [disabled]="noMorePrev">
+            Prev
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button class="buttonRight" (click)="nextPage()" color="primary" [disabled]="noMoreNext">
+            Next
+          </ion-button>    
+        </ion-col>          
+      </ion-row>
+    </ion-col>
+  </ion-row>  
+</ion-content>
+

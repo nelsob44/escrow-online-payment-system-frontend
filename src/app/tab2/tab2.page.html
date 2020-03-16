@@ -1,9 +1,123 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>
-      Tab Two
+      Add Product to sell
     </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onCreateItem()" [disabled]="!form?.valid">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-label position="floating">Item name</ion-label>
+          <ion-input formControlName="itemName" minlength="1"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>  
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <app-image-picker (imagePick)="onImagePicked($event)"
+        ></app-image-picker>
+      </ion-col>      
+    </ion-row>  
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-label position="floating">Item price</ion-label>
+          <ion-input type="number" formControlName="itemPrice" min="0"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-label>Currency</ion-label>
+          <ion-select formControlName="currency" cancelText="Cancel" okText="Okay!">
+            <ion-select-option value="GBP">British Pounds</ion-select-option>
+            <ion-select-option value="NGN">Nigerian Naira</ion-select-option>
+            <ion-select-option value="USD">US Dollars</ion-select-option>
+            <ion-select-option value="EUR">Euros</ion-select-option>             
+          </ion-select>
+        </ion-item>     
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="3" offset-sm="3">
+        <ion-item>
+          <ion-label position="floating">Buyer's name</ion-label>
+          <ion-input formControlName="buyerName" minlength="1"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Where did you connect with buyer?</ion-label>
+          <ion-select formControlName="connectionChannel" cancelText="Cancel" okText="Okay!">
+            <ion-select-option value="facebook">Facebook</ion-select-option>
+            <ion-select-option value="gumtree">Gumtree</ion-select-option>
+            <ion-select-option value="twitter">Twitter</ion-select-option>
+            <ion-select-option value="instagram">Instagram</ion-select-option>
+            <ion-select-option value="youtube">YouTube</ion-select-option>
+            <ion-select-option value="others">Others</ion-select-option>            
+          </ion-select>
+        </ion-item>     
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-label position="floating">Item serial number</ion-label>
+          <ion-input formControlName="itemSerialNo"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-label position="floating">Item model number</ion-label>
+          <ion-input formControlName="itemModelNo"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" size-lg="4">
+        <ion-item>
+          <ion-label position="floating">Selling a phone? First 3 characters of IMEI number</ion-label>
+          <ion-input formControlName="imeiFirst"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size-sm="6" offset-sm="3" size-lg="4">
+        <ion-item>
+          <ion-label position="floating">Selling a phone? Last 3 characters of IMEI number</ion-label>
+          <ion-input formControlName="imeiLast"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Describe item here</ion-label>
+            <ion-textarea formControlName="itemDescription" minlength="5"></ion-textarea>            
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form> 
+</ion-content>

@@ -1,3 +1,39 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" menuId="first">
+    <ion-header>
+      <ion-toolbar class="background">
+        <ion-title>Bridge Pay</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/tabs/home">
+            <ion-icon name="home" slot="start"></ion-icon>
+            <ion-label>Home</ion-label>
+          </ion-item>
+        </ion-menu-toggle>  
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/profile">
+            <ion-icon name="people" slot="start"></ion-icon>
+            <ion-label>Profile</ion-label>
+          </ion-item>
+        </ion-menu-toggle> 
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/admin">
+            <ion-icon name="contact" slot="start"></ion-icon>
+            <ion-label>Admin</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" (click)="previousAuthState ? onLogout() : login()">
+            <ion-icon name="{{previousAuthState ? 'log-out' : 'log-in'}}" slot="start"></ion-icon>
+            <ion-label>{{ previousAuthState ? 'Logout' : 'Login'}}</ion-label>
+          </ion-item>
+        </ion-menu-toggle> 
+      </ion-list>      
+    </ion-content>
+  </ion-menu>
+  <ng-snotify></ng-snotify>
+  <ion-router-outlet main></ion-router-outlet>
 </ion-app>

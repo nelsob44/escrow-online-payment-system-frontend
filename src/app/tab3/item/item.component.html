@@ -1,0 +1,78 @@
+
+  <ion-card-header>
+    <ion-card-subtitle></ion-card-subtitle>
+    <ion-card-title></ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content class="ion-no-padding">
+    <ion-row>
+      <ion-col *ngIf="item.theImages.length > 46" size-sm="12" size-md="8" size-lg="8">
+        <ion-button (click)="presentActionSheet(item.id)" color="primary">
+          Pay
+        </ion-button>
+        <ion-img [src]="item.theImages" [routerLink]="[
+        '/item-detail', item.id]"></ion-img>
+        
+      </ion-col>
+      <ion-col size-md="4" size-lg="4" class="toHide">
+        <ion-button (click)="presentActionSheet(item.id)" color="primary" *ngIf="item.theImages.length < 47">
+          Pay
+        </ion-button>
+        <ion-card-title>{{ item.itemName }}</ion-card-title>
+        
+        <ion-card-subtitle color="medium">Buyer: {{ item.buyerName }}</ion-card-subtitle>
+        <ion-card-subtitle class="newFont" color="success">Price:</ion-card-subtitle><ion-card-title class="newFont" color="success">{{item.currency}} {{ item.itemPrice }}</ion-card-title>
+          <hr/>          
+        <ion-card-title class="newFont">Description</ion-card-title>        
+        <ion-card-subtitle>{{ item.itemDescription }}</ion-card-subtitle>
+                
+        <ion-card-subtitle color="medium">Connection Channel: {{ item.connectionChannel }}</ion-card-subtitle>
+               
+        <ion-card-subtitle *ngIf="item.itemSerialNo" color="medium">Item Serial Number: {{ item.itemSerialNo }}</ion-card-subtitle>
+                
+        <ion-card-subtitle *ngIf="item.itemModelNo" color="medium">Item Model Number: {{ item.itemModelNo }}</ion-card-subtitle>
+                
+        <ion-card-subtitle *ngIf="item.imeiFirst" color="medium">IMEI First Characters: {{ item.imeiFirst }}</ion-card-subtitle>
+                
+        <ion-card-subtitle *ngIf="item.imeiLast" color="medium">IMEI Last Characters: {{ item.imeiLast }}</ion-card-subtitle>
+                
+        <ion-card-subtitle color="medium">Time created: {{ item.created | date: 'mediumDate' }}</ion-card-subtitle>
+      </ion-col>
+    </ion-row>
+    <ion-row class="first-column">      
+      <ion-col size-sm="12">
+        <ion-button (click)="presentActionSheet(item.id)" color="primary" *ngIf="item.theImages.length < 47">
+          Pay
+        </ion-button>
+        <ion-card-title>{{ item.itemName }}</ion-card-title>
+        <ion-card-subtitle color="medium">Buyer: {{ item.buyerName }}</ion-card-subtitle>
+        <ion-card-subtitle class="newFont" color="success">Price:</ion-card-subtitle><ion-card-title class="newFont" color="success">{{item.currency}} {{ item.itemPrice }}</ion-card-title>
+          <hr/>          
+        <ion-card-title>Description</ion-card-title>        
+        <ion-card-subtitle>{{ item.itemDescription }}</ion-card-subtitle>
+                
+        <ion-card-subtitle color="medium">Connection Channel: {{ item.connectionChannel }}</ion-card-subtitle>
+               
+        <ion-card-subtitle *ngIf="item.itemSerialNo" color="medium">Item Serial Number: {{ item.itemSerialNo }}</ion-card-subtitle>
+                
+        <ion-card-subtitle *ngIf="item.itemModelNo" color="medium">Item Model Number: {{ item.itemModelNo }}</ion-card-subtitle>
+                
+        <ion-card-subtitle *ngIf="item.imeiFirst" color="medium">IMEI First Characters: {{ item.imeiFirst }}</ion-card-subtitle>
+                
+        <ion-card-subtitle *ngIf="item.imeiLast" color="medium">IMEI Last Characters: {{ item.imeiLast }}</ion-card-subtitle>
+                
+        <ion-card-subtitle color="medium">Time created: {{ item.created | date: 'mediumDate' }}</ion-card-subtitle>
+      </ion-col>
+    </ion-row>   
+    
+  </ion-card-content>
+
+  <ion-buttons slot="end" *ngIf="canDelete">
+    <ion-button (click)="onDelete(item.id)">
+      <ion-icon name="trash" slot="icon-only"></ion-icon>
+    </ion-button>        
+  </ion-buttons>    
+  
+
+
+

@@ -1,0 +1,18 @@
+<ion-header>
+    
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>item-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let image of item">
+      <img [src]="awsUrl + image.image_path"/>
+    </ion-slide>
+    
+  </ion-slides>
+</ion-content>

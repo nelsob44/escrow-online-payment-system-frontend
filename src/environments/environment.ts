@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'http://localhost:8000/api',
+  imageUrl: 'https://bridge-pay.s3.eu-west-2.amazonaws.com/'
 };
 
 /*

@@ -1,0 +1,50 @@
+
+<ion-list lines="inset">
+  <ion-buttons slot="primary">
+    <ion-avatar slot="start" class="avatar">
+      <ion-img [src]="profile.profile_pic"></ion-img>       
+    </ion-avatar>
+    <ion-button [routerLink]="[
+      '/', 'edit-profile',
+      profile.id]">
+      <ion-icon name="create" slot="icon-only"></ion-icon>
+    </ion-button>  
+  </ion-buttons>
+  
+  <ion-item>
+    <ion-label>
+      First Name:
+    </ion-label>
+    <ion-card-title>{{profile.firstname}}</ion-card-title>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Last Name:
+    </ion-label>
+    <ion-card-title>{{profile.lastname}}</ion-card-title>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Email:
+    </ion-label>
+    <ion-card-title>{{profile.email}}</ion-card-title>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Country:
+    </ion-label>
+    <span><ion-avatar><img src="http://3.bp.blogspot.com/-Zu3sWj8MGh4/Tq-wy7bPwBI/AAAAAAAAAMg/tZtDlFdoqt4/s1600/EnglandFlag.png"></ion-avatar>{{profile.flag}}</span><ion-card-title>{{profile.country}}</ion-card-title>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Phone:
+    </ion-label>
+    <ion-card-title>{{profile.phone}}</ion-card-title>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Status:
+    </ion-label>
+    <ion-card-title>{{profile.status === 3 ? 'Admin' : 'Basic user'}}</ion-card-title>
+  </ion-item>
+</ion-list>

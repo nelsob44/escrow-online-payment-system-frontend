@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+  <ion-row>
+    <ion-col size="4" class="first-column">
+      <div style="background-color: rgb(255, 0, 191);">Categories of the many things to check</div>
+    </ion-col>
+    <ion-col size-sm="12" size-md="8" size-lg="8" class="second-column"> 
+      <ion-virtual-scroll [items]="loadedPayments" approxItemHeight="320px">
+        <ion-card *virtualItem="let item; let itemBounds = bounds;" class="card-payment">
+          
+        <ion-card-header>
+          <ion-card-title>Payment Amount: {{item.currency | uppercase }}{{''}}{{ item.itemPrice }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>Payment owner: {{ item.sellerEmail }}</ion-card-content>
+
+        <ion-card-content>Description: {{ item.itemDescription }}</ion-card-content>
+        <ion-card-content>Date of Payment Initiation: {{ item.paymentDate }}</ion-card-content>
+        <section>          
+          <ion-button expand="block" (click)="presentAlertConfirm(item.id)">Release Payment to Seller</ion-button>
+        </section>
+        </ion-card>
+      </ion-virtual-scroll>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="prevPage()" color="primary" [disabled]="noMorePrev">
+            Prev
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button class="buttonRight" (click)="nextPage()" color="primary" [disabled]="noMoreNext">
+            Next
+          </ion-button>    
+        </ion-col>          
+      </ion-row>
+    </ion-col>
+    
+  </ion-row>  
+  <div class="ion-text-center">
+    <ion-spinner color="primary" *ngIf="isLoading"></ion-spinner>
+  </div> 
+  
+</ion-content>
+

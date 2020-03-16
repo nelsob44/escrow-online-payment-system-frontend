@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="primary" class="title">Reset Password</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background overlay padding">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3" size-lg="10" offset-lg="1">
+          <ion-list>
+            
+            <ion-item>
+              <ion-label position="floating">E-Mail</ion-label>
+              <ion-input type="email" ngModel name="email" 
+              required email
+              #emailCtrl="ngModel"></ion-input>
+            </ion-item>
+                                 
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          
+          <ion-button type="submit" color="primary" class="b2"
+           expand="block"
+           [disabled]="!f.valid">
+            Reset Password
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>  
+    <div class="ion-text-center">
+      <ion-spinner color="primary" *ngIf="isLoading"></ion-spinner>
+    </div>  
+  </form> 
+</ion-content>
+

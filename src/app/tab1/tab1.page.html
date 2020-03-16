@@ -1,41 +1,55 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>
-      Tab One
+      Home
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="[
+        '/', 'tabs', 'add-product']">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>        
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-card class="welcome-card">
-      <img src="/assets/shapes.svg" alt="" />
-      <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome to Ionic</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
-      </ion-card-content>
-    </ion-card>
-    <ion-list lines="none">
-      <ion-list-header>
-        <ion-label>Resources</ion-label>
-      </ion-list-header>
-      <ion-item href="https://ionicframework.com/docs/">
-        <ion-icon slot="start" color="medium" name="book"></ion-icon>
-        <ion-label>Ionic Documentation</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/building/scaffolding">
-        <ion-icon slot="start" color="medium" name="build"></ion-icon>
-        <ion-label>Scaffold Out Your App</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/layout/structure">
-        <ion-icon slot="start" color="medium" name="grid"></ion-icon>
-        <ion-label>Change Your App Layout</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/theming/basics">
-        <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
-        <ion-label>Theme Your App</ion-label>
-      </ion-item>
-    </ion-list>
+<ion-content class="ion-no-padding">
+  <ion-row>
+    <ion-col size="4" class="first-column">
+      <div style="background-color: rgb(255, 0, 191);">Categories of the many things to check</div>
+    </ion-col>
+    <ion-col size-sm="12" size-md="8" size-lg="8"> 
+      <form [formGroup]="form">
+        <ion-row>
+          <ion-col size-sm="12">
+            <ion-item>
+              <ion-label position="stacked">Enter the ID of item to search</ion-label>
+              <ion-buttons slot="end">
+                <ion-button (click)="onSearchProductCode()" color="primary">
+                  <ion-icon name="send"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+
+              <ion-input formControlName="itemId" minlength="1"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </form>
+          
+      <ion-list>
+        <ion-item-sliding *ngFor="let item of loadedItems">
+          <app-item [item]="item"></app-item>             
+          
+          <ion-item-options side="start">
+            <ion-item-option color="secondary" (click)="onEdit(item.id, slidingItem)">
+              <ion-icon name="create" slot="icon-only"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>            
+      </ion-list>
+    </ion-col>
+  </ion-row>  
 </ion-content>
