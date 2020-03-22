@@ -42,16 +42,15 @@ export class ImagePickerComponent implements OnInit {
       quality: 80,
       allowEditing: true,
       source: CameraSource.Prompt,
-      correctOrientation: true,
-      height: 320,
-      width: 200,
+      correctOrientation: true,      
+      width: 300,
       resultType: CameraResultType.DataUrl
     }).then(image => {
       this.selectedImage = image.dataUrl;
       this.imagePick.emit(image.dataUrl);      
     })
     .catch(error => {
-      
+      console.log(error);
       if(this.usePicker) {
         this.filePickerRef.nativeElement.click();
       }      

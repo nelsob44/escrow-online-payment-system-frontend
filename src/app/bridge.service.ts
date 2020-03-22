@@ -42,7 +42,7 @@ export class BridgeService {
         )
       }), 
         map(data => {    
-          console.log(data);
+          
           const items = [];
           for (const key in data.data.data) {
             if(data.data.data.hasOwnProperty(key)) {
@@ -110,7 +110,7 @@ export class BridgeService {
         )
       }),
       map(data => {    
-        console.log(data);
+        
         const items = [];
           for (const key in data.data.data) {
             if(data.data.data.hasOwnProperty(key)) {

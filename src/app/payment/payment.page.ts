@@ -20,6 +20,10 @@ export class PaymentPage implements OnInit, OnDestroy {
   noMoreNext = false;
   noMorePrev = true;
   page = 1;
+  private userName: string;
+  private userNameSub: Subscription;
+  isLoggedIn = false;
+  hasPayments = false;
 
   constructor(private bridgeService: BridgeService,
   private route: ActivatedRoute, 
@@ -40,6 +44,7 @@ export class PaymentPage implements OnInit, OnDestroy {
     this.isLoading = true;
     this.paymentSub = this.bridgeService.fetchpayments(this.usefulEmail, this.page).subscribe(payments => {
       if(payments.length > 0 ) {
+        this.hasPayments = true;
         this.loadedPayments = payments;
         this.noMorePrev = false;
       } else {
@@ -61,6 +66,7 @@ export class PaymentPage implements OnInit, OnDestroy {
     this.noMoreNext = false;
     this.isLoading = true;
     this.paymentSub = this.bridgeService.fetchpayments(this.usefulEmail, this.page).subscribe(payments => {
+      this.hasPayments = true;
       this.loadedPayments = payments;      
     });
   }
@@ -69,9 +75,19 @@ export class PaymentPage implements OnInit, OnDestroy {
   ionViewWillEnter() {
     this.isLoading = true;
     this.paymentSub = this.bridgeService.fetchpayments(this.usefulEmail, this.page).subscribe(payments => {
+      this.hasPayments = true;
       this.loadedPayments = payments;  
       this.isLoading = false;    
     });
+    this.userNameSub = this.authService.userName.subscribe(userName => {
+      if(userName) {
+        this.userName = userName;
+        this.isLoggedIn = true;
+      }        
+    });
+  }
+  onClickViewItems() {
+    this.router.navigate(['/tabs/my-items']);
   }
 
   onCompletePayment(id: number) {

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { BridgeService } from '../bridge.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-tab1',
@@ -18,12 +19,16 @@ export class Tab1Page implements OnInit, OnDestroy{
   isLoading = false;
   private itemsSub: Subscription;
   private searchItemSub: Subscription;
+  private userName: string;
+  private userNameSub: Subscription;
+  isLoggedIn = false;
   
   constructor(private bridgeService: BridgeService,
   private route: ActivatedRoute, 
   private loadingCtrl: LoadingController,
   private alertCtrl: AlertController,
-  private router: Router) {}
+  private router: Router,
+  private authService: AuthService) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -32,6 +37,19 @@ export class Tab1Page implements OnInit, OnDestroy{
         validators: [Validators.required, Validators.min(1)]
       })
     });
+  }
+
+  ionViewWillEnter() {
+    this.userNameSub = this.authService.userName.subscribe(userName => {
+      if(userName) {
+        this.userName = userName;
+        this.isLoggedIn = true;
+      }        
+    });
+  }
+
+  refreshFilter() {    
+    this.loadedItems = [];
   }
 
   onSearchProductCode() {
@@ -44,7 +62,7 @@ export class Tab1Page implements OnInit, OnDestroy{
       loadingEl.present();
 
       this.searchItemSub = this.bridgeService.searchitem(this.form.value.itemId).subscribe(item => {
-        console.log(item);
+        
         if(item === "The search was not found") {
           this.showAlert("The search was not found");
         } else {
@@ -67,6 +85,10 @@ export class Tab1Page implements OnInit, OnDestroy{
       });
     });    
     
+  }
+
+  onCreateItem() {
+    this.router.navigate(['/tabs/add-product']);
   }
 
   private showAlert(message: string) {

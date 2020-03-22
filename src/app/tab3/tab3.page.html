@@ -12,9 +12,44 @@
 <ion-content class="ion-no-padding">
   <ion-row>
     <ion-col size="4" class="first-column">
-      <div style="background-color: rgb(255, 0, 191);">Categories of the many things to check</div>
+      <div>
+        <ion-card *ngIf="isLoggedIn">
+          <ion-item (click)="onCreateItem()">
+            <ion-chip color="tertiary">
+              <ion-label color="dark"><ion-card-title>Create New Item</ion-card-title></ion-label>
+            </ion-chip>
+          </ion-item>                    
+        </ion-card>
+        <ion-card>
+          <ion-item (click)="onClickViewPayments()">
+            <ion-chip color="tertiary">
+              <ion-label color="dark"><ion-card-title>Pending payments</ion-card-title></ion-label>
+            </ion-chip>
+          </ion-item>                    
+        </ion-card>
+        
+        <!-- <ion-card *ngFor="let storyTitle of loadedStoryTitles">          
+          <ion-item (click)="onSearchStoryFilter(storyTitle)">
+            <ion-chip color="primary">
+              <ion-label color="dark">{{storyTitle}}</ion-label>
+            </ion-chip>
+          </ion-item>          
+        </ion-card> -->
+      </div>
     </ion-col>
     <ion-col size-sm="12" size-md="8" size-lg="8"> 
+      <ion-grid>
+        <ion-row class="ion-no-padding">
+          <ion-col *ngIf="userName" size-sm="4">
+            <ion-card-subtitle color="primary">Hi, <i>{{userName | titlecase}}!</i></ion-card-subtitle> 
+          </ion-col>
+          
+          <ion-col size-sm="4">
+            <ion-card-subtitle color="primary">Refresh search</ion-card-subtitle> 
+            <ion-toggle (ionChange)="refreshFilter()"></ion-toggle>     
+          </ion-col>
+        </ion-row>        
+      </ion-grid>
       <form [formGroup]="form">
         <ion-row>
           <ion-col size-sm="12">
@@ -45,15 +80,15 @@
                    
       </ion-list>
       <ion-row>
-        <ion-col>
-          <ion-button (click)="prevPage()" color="primary" [disabled]="noMorePrev">
-            Prev
-          </ion-button>
+        <ion-col size="9">
+          <ion-chip button="true" outline color="tertiary" (click)="prevPage()" *ngIf="!noMorePrev">
+            <ion-label>Prev</ion-label>
+          </ion-chip>         
         </ion-col>
-        <ion-col>
-          <ion-button class="buttonRight" (click)="nextPage()" color="primary" [disabled]="noMoreNext">
-            Next
-          </ion-button>    
+        <ion-col size="3">
+          <ion-chip outline color="tertiary" class="buttonRight" (click)="nextPage()" *ngIf="!noMoreNext">
+            <ion-label>Next</ion-label>
+          </ion-chip>         
         </ion-col>          
       </ion-row>
     </ion-col>

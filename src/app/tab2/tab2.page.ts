@@ -156,7 +156,7 @@ export class Tab2Page implements OnInit, OnDestroy {
         imageFile = base64toBlob(imageData.replace('data:image/png;base64,', ''), 'image/jpeg');
         this.filesToUpload.push(imageFile);
       } catch (error) {
-        console.log(error);
+        this.showAlert(error)
         return;
       } 
     } else {
@@ -168,7 +168,12 @@ export class Tab2Page implements OnInit, OnDestroy {
     }
     this.form.patchValue({ theImage: imageFile });
   }
-
+  private showAlert(message: string) {
+    this.alertCtrl.create({      
+      message: message,
+      buttons: ['Okay']
+    }).then(alertEl => alertEl.present());
+  }
 
   ngOnDestroy() {
     if (this.itemSub) {

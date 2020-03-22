@@ -9,6 +9,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <small><i>click, hold and drag across screen to view gallery</i></small>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-slides pager="true" [options]="slideOpts">
     <ion-slide *ngFor="let image of item">
       <img [src]="awsUrl + image.image_path"/>

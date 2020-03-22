@@ -3,16 +3,56 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>payment</ion-title>
+    <ion-title>Pending Payments</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-no-padding">
   <ion-row>
     <ion-col size="4" class="first-column">
-      <div style="background-color: rgb(255, 0, 191);">Categories of the many things to check</div>
+      <div>
+        <ion-card *ngIf="isLoggedIn">
+          <ion-item (click)="onCreateItem()">
+            <ion-chip color="tertiary">
+              <ion-label color="dark"><ion-card-title>Create New Item</ion-card-title></ion-label>
+            </ion-chip>
+          </ion-item>                    
+        </ion-card>
+        <ion-card>
+          <ion-item (click)="onClickViewItems()">
+            <ion-chip color="tertiary">
+              <ion-label color="dark"><ion-card-title>View my Items</ion-card-title></ion-label>
+            </ion-chip>
+          </ion-item>                    
+        </ion-card>
+        
+        <!-- <ion-card *ngFor="let storyTitle of loadedStoryTitles">          
+          <ion-item (click)="onSearchStoryFilter(storyTitle)">
+            <ion-chip color="primary">
+              <ion-label color="dark">{{storyTitle}}</ion-label>
+            </ion-chip>
+          </ion-item>          
+        </ion-card> -->
+      </div>
     </ion-col>
     <ion-col size-sm="12" size-md="8" size-lg="8" class="second-column"> 
+      <ion-grid>
+        <ion-row class="ion-no-padding">
+          <ion-col *ngIf="userName" size-sm="4">
+            <ion-card-subtitle color="primary">Hi, <i>{{userName | titlecase}}!</i></ion-card-subtitle> 
+          </ion-col>          
+          
+        </ion-row>        
+      </ion-grid>
+      <ion-grid *ngIf="!hasPayments">
+        <ion-row class="ion-no-padding">
+          <ion-col>
+            <ion-card-subtitle color="primary">Sorry <i>{{userName | titlecase}}, you have no pending payments at this time.</i></ion-card-subtitle> 
+          </ion-col>          
+          
+        </ion-row>        
+      </ion-grid>
+      
       <ion-virtual-scroll [items]="loadedPayments" approxItemHeight="320px">
         <ion-card *virtualItem="let item; let itemBounds = bounds;" class="card-payment">
           
