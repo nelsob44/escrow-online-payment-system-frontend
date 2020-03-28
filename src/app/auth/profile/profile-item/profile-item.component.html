@@ -2,7 +2,7 @@
 <ion-list lines="inset">
   <ion-buttons slot="primary">
     <ion-avatar slot="start" class="avatar">
-      <ion-img [src]="profile.profile_pic"></ion-img>       
+      <ion-img [src]="profile.profile_pic.length > 50 ? profile.profile_pic : '../../../assets/icon/name-icon.png'"></ion-img>       
     </ion-avatar>
     <ion-button [routerLink]="[
       '/', 'edit-profile',

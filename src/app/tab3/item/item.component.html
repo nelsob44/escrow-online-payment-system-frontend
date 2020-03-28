@@ -5,16 +5,20 @@
   </ion-card-header>
 
   <ion-card-content class="ion-no-padding">
+    
     <ion-row>
       <ion-col *ngIf="item.theImages.length > 46" size-sm="12" size-md="8" size-lg="8">
+                
         <ion-button (click)="presentActionSheet(item.id)" color="primary">
           Pay
         </ion-button>
+        <div id="paypal-button-container"></div>
         <ion-img [src]="item.theImages" [routerLink]="[
         '/item-detail', item.id]"></ion-img>
         
       </ion-col>
       <ion-col size-md="4" size-lg="4" class="toHide">
+        
         <ion-button (click)="presentActionSheet(item.id)" color="primary" *ngIf="item.theImages.length < 47">
           Pay
         </ion-button>
@@ -41,6 +45,7 @@
     </ion-row>
     <ion-row class="first-column">      
       <ion-col size-sm="12">
+        
         <ion-button (click)="presentActionSheet(item.id)" color="primary" *ngIf="item.theImages.length < 47">
           Pay
         </ion-button>
@@ -62,6 +67,7 @@
         <ion-card-subtitle *ngIf="item.imeiLast" color="medium">IMEI Last Characters: {{ item.imeiLast }}</ion-card-subtitle>
                 
         <ion-card-subtitle color="medium">Time created: {{ item.created | date: 'mediumDate' }}</ion-card-subtitle>
+                
       </ion-col>
     </ion-row>   
     

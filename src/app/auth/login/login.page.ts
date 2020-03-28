@@ -21,16 +21,34 @@ export class LoginPage implements OnInit {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController
   ) { }
+  selectedColourPalette = 1;
+  colourPaletteOne = {
+    primary: 'blue', 
+    secondary: 'grey',    
+  }
 
   ngOnInit() {
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit(form: NgForm) {    
     if (!form.valid) {
       return;
     }
+    const firstname = form.value.firstname;
+    const lastname = form.value.lastname;
+    const email = form.value.email;
+    const password = form.value.password;
+    const confirmpassword = form.value.confirmpassword;
+    const country = form.value.country;
+    const terms = form.value.terms;
+    
 
     if (!this.isLogin) {
+      if(!terms) {
+        this.showAlert('You need to agree to terms and conditions to proceed');
+        return;
+      }
+
       if(form.value.password !== form.value.confirmpassword) {
         this.showAlert('Your passwords do not match. Please enter and confirm your password again');
         return;
@@ -41,15 +59,11 @@ export class LoginPage implements OnInit {
     this.loadingCtrl.create({keyboardClose: true, message: this.isLogin ? 'Logging in....' : 'Signing up....' })
     .then(loadingEl => {
       loadingEl.present();
-      const firstname = form.value.firstname;
-      const lastname = form.value.lastname;
-      const email = form.value.email;
-      const password = form.value.password;
-      const confirmpassword = form.value.confirmpassword;
-      const country = form.value.country;
+      
       let authObs: Observable<AuthResponseData>;
 
       if(!this.isLogin) {
+        
         authObs = this.authService.signup(firstname, lastname, email, password, confirmpassword, country);
       }
       else {

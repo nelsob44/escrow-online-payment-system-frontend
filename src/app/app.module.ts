@@ -11,13 +11,14 @@ import {FormsModule} from '@angular/forms';
 import { PaymentModalComponent } from 'src/app/shared/payment-modal/payment-modal.component';
 import {ChoosePayModalComponent} from 'src/app/shared/choose-pay-modal/choose-pay-modal.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NgxPayPalModule } from 'ngx-paypal';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent, PaymentModalComponent, ChoosePayModalComponent],
   entryComponents: [PaymentModalComponent, ChoosePayModalComponent],
   imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), SnotifyModule, AppRoutingModule, 
-  SnotifyModule, ReactiveFormsModule, FormsModule],
+  SnotifyModule, ReactiveFormsModule, FormsModule, NgxPayPalModule],
   providers: [
     StatusBar,
     SplashScreen,

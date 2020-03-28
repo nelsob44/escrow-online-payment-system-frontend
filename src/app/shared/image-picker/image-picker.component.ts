@@ -47,7 +47,8 @@ export class ImagePickerComponent implements OnInit {
       resultType: CameraResultType.DataUrl
     }).then(image => {
       this.selectedImage = image.dataUrl;
-      this.imagePick.emit(image.dataUrl);      
+      this.imagePick.emit(image.dataUrl);  
+      this.showPreview = true;    
     })
     .catch(error => {
       console.log(error);

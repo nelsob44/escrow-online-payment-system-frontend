@@ -11,7 +11,83 @@
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <ion-grid>
       <ion-row>
-        <ion-col size-sm="6" offset-sm="3" size-lg="10" offset-lg="1">
+        <ion-col size="4" class="first-column">
+          <div>     
+            <ion-card class="background-class">               
+              <ion-list>
+                <ion-item>
+                  <span><small>Pokémon Yellow</small></span>
+                </ion-item>
+                <ion-item>
+                  <span><small>Mega Man X</small></span>
+                </ion-item>
+                <ion-item>
+                  <span><small>The Legend of Zelda</small></span>
+                </ion-item>
+                <ion-item>
+                  <span><small>Pac-Man</small></span>
+                </ion-item>
+                <ion-item>
+                  <span><small>Super Mario World</small></span>
+                </ion-item>
+              </ion-list>                             
+            </ion-card>       
+            <ion-card *ngIf="!isLogin">
+              <ion-item>
+                <ion-infinite-scroll>                      
+                  <ion-content  class="terms-class">
+                    <ion-list>
+                      <ion-item>
+                        <span><small>Pokémon Yellow</small></span>
+                      </ion-item>
+                      <ion-item>
+                        <span><small>Mega Man X</small></span>
+                      </ion-item>
+                      <ion-item>
+                        <span><small>The Legend of Zelda</small></span>
+                      </ion-item>
+                      <ion-item>
+                        <span><small>Pac-Man</small></span>
+                      </ion-item>
+                      <ion-item>
+                        <span><small>Super Mario World</small></span>
+                      </ion-item>
+                    </ion-list>
+                  </ion-content>                    
+                </ion-infinite-scroll>
+              </ion-item>                    
+            </ion-card>
+            <ion-card *ngIf="!isLogin">              
+              <ion-item>
+                <ion-label><small class="blue-class">I agree to terms and conditions</small></ion-label>
+                <ion-checkbox slot="end" [(ngModel)]="terms" #termsCtrl="ngModel" name="terms"></ion-checkbox>
+              </ion-item>                                  
+            </ion-card>           
+          </div>
+        </ion-col>
+        <ion-col size-sm="12" size-md="8" size-lg="8">
+          <div [ngClass]="{isLogin: true, 'second': true, 'third': false}">
+            <ion-card class="hide-class">               
+              <ion-list>
+                <ion-item>
+                  <span><small>Pokémon Yellow</small></span>
+                </ion-item>
+                <ion-item>
+                  <span><small>Mega Man X</small></span>
+                </ion-item>
+                <ion-item>
+                  <span><small>The Legend of Zelda</small></span>
+                </ion-item>
+                <ion-item>
+                  <span><small>Pac-Man</small></span>
+                </ion-item>
+                <ion-item>
+                  <span><small>Super Mario World</small></span>
+                </ion-item>
+              </ion-list>                             
+            </ion-card>
+          </div>
+          
           <ion-list>
             <ion-item *ngIf="!isLogin">
               <ion-label position="floating">First Name</ion-label>
@@ -58,25 +134,62 @@
                #confirmPasswordCtrl="ngModel"></ion-input>
             </ion-item>            
           </ion-list>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size-sm="6" offset-sm="3">
-          <ion-button type="button" color="primary" class="b1"
-           fill="clear" expand="block"
-           (click)="onSwitchAuthMode()">Switch to {{ isLogin ? 'Signup' : 'Login' }}</ion-button>
-          <ion-button type="submit" color="primary" class="b2"
-           expand="block"
-           [disabled]="!f.valid">
-            {{ isLogin ? 'Login' : 'Signup' }}
-          </ion-button>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
-          <ion-card-subtitle><a href="/request-reset">Reset Password</a></ion-card-subtitle>
-        </ion-col>
-      </ion-row>
+          <ion-row class="hide-class">
+            <ion-col>
+              <div>            
+                <ion-card *ngIf="!isLogin">
+                  <ion-item>
+                    <ion-infinite-scroll>                      
+                      <ion-content  class="terms-class">
+                        <ion-list>
+                          <ion-item>
+                            <span><small>Pokémon Yellow</small></span>
+                          </ion-item>
+                          <ion-item>
+                            <span><small>Mega Man X</small></span>
+                          </ion-item>
+                          <ion-item>
+                            <span><small>The Legend of Zelda</small></span>
+                          </ion-item>
+                          <ion-item>
+                            <span><small>Pac-Man</small></span>
+                          </ion-item>
+                          <ion-item>
+                            <span><small>Super Mario World</small></span>
+                          </ion-item>
+                        </ion-list>
+                      </ion-content>                    
+                    </ion-infinite-scroll>
+                  </ion-item>                    
+                </ion-card>
+                <ion-card *ngIf="!isLogin">              
+                  <ion-item>
+                    <ion-label><small class="blue-class">I agree to terms and conditions</small></ion-label>
+                    <ion-checkbox slot="end" [(ngModel)]="terms" #termsCtrl="ngModel" name="terms"></ion-checkbox>
+                  </ion-item>                                  
+                </ion-card>           
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <ion-button type="button" color="primary" class="b1"
+              fill="clear" expand="block"
+              (click)="onSwitchAuthMode()">Switch to {{ isLogin ? 'Signup' : 'Login' }}</ion-button>
+              <ion-button type="submit" color="primary" class="b2"
+              expand="block"
+              [disabled]="!f.valid">
+                {{ isLogin ? 'Login' : 'Signup' }}
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+              <ion-card-subtitle><a href="/request-reset">Reset Password</a></ion-card-subtitle>
+            </ion-col>
+          </ion-row>
+        </ion-col>        
+      </ion-row>      
     </ion-grid>  
     <div class="ion-text-center">
       <ion-spinner color="primary" *ngIf="isLoading"></ion-spinner>

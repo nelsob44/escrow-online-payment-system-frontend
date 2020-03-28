@@ -149,7 +149,10 @@ export class EditProfilePage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if(this.userSub) {
-      this.userSub.unsubscribe();
+      this.userSub.unsubscribe();      
+    }
+
+    if(this.profileSub) {
       this.profileSub.unsubscribe();
     }
   }

@@ -10,21 +10,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content no-padding>
+<ion-content class="no-padding">
   <ion-row>
     <ion-col size="4" class="first-column">
-      <div style="background-color: rgb(255, 0, 191);">Categories of the many things to check</div>
+      <div>
+        <ion-card>
+          <ion-item (click)="onEditProfile(profile.id)">
+            <ion-chip color="tertiary">
+              <ion-label color="dark"><ion-card-title>Edit Profile</ion-card-title></ion-label>
+            </ion-chip>
+          </ion-item>                    
+        </ion-card>
+        <ion-card>
+          <ion-item (click)="onClickViewPayments()">
+            <ion-chip color="tertiary">
+              <ion-label color="dark"><ion-card-title>Pending payments</ion-card-title></ion-label>
+            </ion-chip>
+          </ion-item>                    
+        </ion-card>
+        
+      </div>
     </ion-col>
     <ion-col size-sm="12" size-md="8" size-lg="8"> 
       <app-profile-item [profile]="profile"></app-profile-item>
-      <!-- <ion-list>          
-        <ion-item-options side="start">
-          <ion-item-option color="secondary" (click)="onEdit(item.id, slidingItem)">
-            <ion-icon name="create" slot="icon-only"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-                   
-      </ion-list> -->
+      
     </ion-col>
   </ion-row>  
 </ion-content>

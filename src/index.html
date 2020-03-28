@@ -19,13 +19,16 @@
 </head>
 
 <body>
+ 
+  <script src="https://js.stripe.com/v3/" SameSite="None" Secure>
   
-  <script src="https://js.stripe.com/v3/" SameSite=None>
-  var stripe = Stripe('pk_test_qkCQMaN7xcuxD4z2rZvZIRDR');
+  var stripe = Stripe('key');
   var elements = stripe.elements();
   </script>
 
   <app-root></app-root>
+  
+  
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Item } from 'src/app/models/item.model';
 import { Subscription } from 'rxjs';
 import { BridgeService } from 'src/app/bridge.service';
@@ -9,25 +9,32 @@ import {ChoosePayModalComponent} from 'src/app/shared/choose-pay-modal/choose-pa
 import { ModalController, AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/auth.service';
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 
+ 
 @Component({
   selector: 'app-item',
-  templateUrl: './item.component.html',
+  templateUrl: './item.component.html',  
   styleUrls: ['./item.component.scss'],
 })
 export class ItemComponent implements OnInit, OnDestroy {
   @Input() item: Item;
-
+  @ViewChild('payPalConfig', {static: false}) paypalElement: ElementRef;
+  
+  public payPalConfig?: IPayPalConfig;
+  paypal;
   private paymentIntentSub: Subscription;
   private emailSub: Subscription;
   private statusSub: Subscription;
   private buyerEmail: string;
   private canDelete: boolean = false;
-
+  private showSuccess: boolean = false;
+  
   constructor(private modalCtrl: ModalController, private bridgeService: BridgeService,
   private router: Router, private authService: AuthService,
   public actionSheetController: ActionSheetController,
   private alertCtrl: AlertController) { }
+
 
   ngOnInit() {
     this.emailSub = this.authService.userEmail.subscribe(email => {
@@ -148,6 +155,8 @@ export class ItemComponent implements OnInit, OnDestroy {
       console.log('deleted');
     });
   }
+
+ 
 
   ngOnDestroy() {
     if(this.paymentIntentSub) {
