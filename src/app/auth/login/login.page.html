@@ -14,7 +14,7 @@
         <ion-col size="4" class="first-column">
           <div>     
             <ion-card class="background-class">               
-              <ion-list>
+              <ion-list class="description">
                 <ion-item>
                   <span><small>Pokémon Yellow</small></span>
                 </ion-item>
@@ -36,23 +36,7 @@
               <ion-item>
                 <ion-infinite-scroll>                      
                   <ion-content  class="terms-class">
-                    <ion-list>
-                      <ion-item>
-                        <span><small>Pokémon Yellow</small></span>
-                      </ion-item>
-                      <ion-item>
-                        <span><small>Mega Man X</small></span>
-                      </ion-item>
-                      <ion-item>
-                        <span><small>The Legend of Zelda</small></span>
-                      </ion-item>
-                      <ion-item>
-                        <span><small>Pac-Man</small></span>
-                      </ion-item>
-                      <ion-item>
-                        <span><small>Super Mario World</small></span>
-                      </ion-item>
-                    </ion-list>
+                    <app-terms></app-terms>
                   </ion-content>                    
                 </ion-infinite-scroll>
               </ion-item>                    
@@ -68,7 +52,7 @@
         <ion-col size-sm="12" size-md="8" size-lg="8">
           <div [ngClass]="{isLogin: true, 'second': true, 'third': false}">
             <ion-card class="hide-class">               
-              <ion-list>
+              <ion-list class="description">
                 <ion-item>
                   <span><small>Pokémon Yellow</small></span>
                 </ion-item>
@@ -88,7 +72,7 @@
             </ion-card>
           </div>
           
-          <ion-list>
+          <ion-list class="decorate">
             <ion-item *ngIf="!isLogin">
               <ion-label position="floating">First Name</ion-label>
               <ion-input type="text" ngModel name="firstname" 
@@ -141,23 +125,7 @@
                   <ion-item>
                     <ion-infinite-scroll>                      
                       <ion-content  class="terms-class">
-                        <ion-list>
-                          <ion-item>
-                            <span><small>Pokémon Yellow</small></span>
-                          </ion-item>
-                          <ion-item>
-                            <span><small>Mega Man X</small></span>
-                          </ion-item>
-                          <ion-item>
-                            <span><small>The Legend of Zelda</small></span>
-                          </ion-item>
-                          <ion-item>
-                            <span><small>Pac-Man</small></span>
-                          </ion-item>
-                          <ion-item>
-                            <span><small>Super Mario World</small></span>
-                          </ion-item>
-                        </ion-list>
+                        <app-terms></app-terms>
                       </ion-content>                    
                     </ion-infinite-scroll>
                   </ion-item>                    
