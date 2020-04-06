@@ -68,7 +68,7 @@
         </section>
         </ion-card>
       </ion-virtual-scroll>
-      <ion-row>
+      <ion-row *ngIf="hasPayments">
         <ion-col>
           <ion-button (click)="prevPage()" color="primary" [disabled]="noMorePrev">
             Prev

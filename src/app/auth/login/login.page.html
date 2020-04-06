@@ -101,7 +101,27 @@
                 <ion-select-option value="United States">United States</ion-select-option>                            
                 <ion-select-option value="others">Others</ion-select-option>            
               </ion-select>
-            </ion-item>      
+            </ion-item> 
+            <ion-item *ngIf="!isLogin">
+              <ion-label>Choose a secret question</ion-label>
+              <ion-select #secretQuestionCtrl="ngModel" ngModel name="secretquestion" cancelText="Cancel" okText="Okay!">
+                <ion-select-option value="Your best colour is">Your best colour is?</ion-select-option>
+                <ion-select-option value="Your football team is">Your football team is?</ion-select-option>                            
+                <ion-select-option value="Your best teacher is">Your best teacher is?</ion-select-option>
+                <ion-select-option value="Your maiden name is">Your maiden name is?</ion-select-option>   
+                <ion-select-option value="Your best car is">Your best car is?</ion-select-option>                      
+              </ion-select>
+            </ion-item>  
+            <ion-item *ngIf="!isLogin">
+              <ion-label position="floating">Enter your secret answer (Just 1 word only)</ion-label>
+              <ion-input type="text" ngModel name="secretanswer" 
+              required minlength="3" maxlength="10"
+              #secretAnswerCtrl="ngModel"></ion-input>
+            </ion-item>  
+            <ion-item *ngIf="!isLogin">
+              <ion-label position="floating">Mobile phone (Optional. e.g +447111111111)</ion-label>
+              <ion-input type="number" ngModel name="phone" #phoneCtrl="ngModel"></ion-input>
+            </ion-item> 
             <ion-item>
               <ion-label position="floating">Password</ion-label>
               <ion-input type="password" ngModel name="password"

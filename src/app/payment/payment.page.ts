@@ -75,8 +75,11 @@ export class PaymentPage implements OnInit, OnDestroy {
   ionViewWillEnter() {
     this.isLoading = true;
     this.paymentSub = this.bridgeService.fetchpayments(this.usefulEmail, this.page).subscribe(payments => {
-      this.hasPayments = true;
-      this.loadedPayments = payments;  
+      
+      if(payments && payments.length > 0) {
+        this.hasPayments = true;
+        this.loadedPayments = payments;  
+      }
       this.isLoading = false;    
     });
     this.userNameSub = this.authService.userName.subscribe(userName => {
@@ -88,6 +91,10 @@ export class PaymentPage implements OnInit, OnDestroy {
   }
   onClickViewItems() {
     this.router.navigate(['/tabs/my-items']);
+  }
+
+  onCreateItem() {
+    this.router.navigate(['/tabs/add-product']);
   }
 
   onCompletePayment(id: number) {

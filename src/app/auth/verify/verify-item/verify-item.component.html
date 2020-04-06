@@ -1,0 +1,45 @@
+<ion-item  class="decorate">
+  <ion-label *ngIf="character == 1">{{character}}st{{' '}}Character of your secret answer</ion-label>
+  <ion-label *ngIf="character == 2">{{character}}nd{{' '}}Character of your secret answer</ion-label>
+  <ion-label *ngIf="character == 3">{{character}}rd{{' '}}Character of your secret answer</ion-label>
+  <ion-label *ngIf="character > 3">{{character}}th{{' '}}Character of your secret answer</ion-label>  
+      
+  <ion-select #secretAnswer ngModel name="secretAnswer" (ionChange)="processChange($event)" cancelText="Cancel" okText="Okay!">
+    <ion-select-option value="a">a</ion-select-option>
+    <ion-select-option value="b">b</ion-select-option>                            
+    <ion-select-option value="c">c</ion-select-option>
+    <ion-select-option value="d">d</ion-select-option>
+    <ion-select-option value="e">e</ion-select-option>
+    <ion-select-option value="f">f</ion-select-option>
+    <ion-select-option value="g">g</ion-select-option>
+    <ion-select-option value="h">h</ion-select-option>
+    <ion-select-option value="i">i</ion-select-option>
+    <ion-select-option value="j">j</ion-select-option>
+    <ion-select-option value="k">k</ion-select-option>
+    <ion-select-option value="l">l</ion-select-option>
+    <ion-select-option value="m">m</ion-select-option>
+    <ion-select-option value="n">n</ion-select-option>
+    <ion-select-option value="o">o</ion-select-option>
+    <ion-select-option value="p">p</ion-select-option>
+    <ion-select-option value="q">q</ion-select-option>
+    <ion-select-option value="r">r</ion-select-option>
+    <ion-select-option value="s">s</ion-select-option>
+    <ion-select-option value="t">t</ion-select-option>
+    <ion-select-option value="u">u</ion-select-option>
+    <ion-select-option value="v">v</ion-select-option>
+    <ion-select-option value="w">w</ion-select-option>
+    <ion-select-option value="x">x</ion-select-option>
+    <ion-select-option value="y">y</ion-select-option>
+    <ion-select-option value="z">z</ion-select-option>
+    <ion-select-option value="0">0</ion-select-option>
+    <ion-select-option value="1">1</ion-select-option>
+    <ion-select-option value="2">2</ion-select-option>
+    <ion-select-option value="3">3</ion-select-option>
+    <ion-select-option value="4">4</ion-select-option>
+    <ion-select-option value="5">5</ion-select-option>
+    <ion-select-option value="6">6</ion-select-option>
+    <ion-select-option value="7">7</ion-select-option>
+    <ion-select-option value="8">8</ion-select-option>
+    <ion-select-option value="9">9</ion-select-option>
+  </ion-select>
+</ion-item>

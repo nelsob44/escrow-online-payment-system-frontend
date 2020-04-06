@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { AdminGuard } from './auth/admin.guard';
+import {VerifiedGuard} from './auth/verified.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +24,7 @@ const routes: Routes = [
   { 
     path: 'profile', 
     loadChildren: './auth/profile/profile.module#ProfilePageModule', 
-    canLoad: [AuthGuard]
+    canLoad: [AuthGuard, VerifiedGuard]
   },
   { 
     path: 'signup', 
@@ -32,27 +33,32 @@ const routes: Routes = [
   { 
     path: 'admin', 
     loadChildren: './admin/admin.module#AdminPageModule',
-    canLoad: [AuthGuard, AdminGuard] 
+    canLoad: [AuthGuard, VerifiedGuard, AdminGuard] 
   },
   { 
     path: 'item-detail/:itemId', 
     loadChildren: './item-detail/item-detail.module#ItemDetailPageModule', 
-    canLoad: [AuthGuard]
+    canLoad: [AuthGuard, VerifiedGuard]
   },
   { 
     path: 'payment', 
     loadChildren: './payment/payment.module#PaymentPageModule',
-    canLoad: [AuthGuard]
+    canLoad: [AuthGuard, VerifiedGuard]
   },
   { 
     path: 'edit-profile/:profileId', 
     loadChildren: './auth/profile/edit-profile/edit-profile.module#EditProfilePageModule',
-    canLoad: [AuthGuard] 
+    canLoad: [AuthGuard, VerifiedGuard] 
   },
   {
     path: 'edit-profile',
     redirectTo: '/tabs/home',
     pathMatch: 'full'
+  },
+  { 
+    path: 'verify', 
+    loadChildren: './auth/verify/verify.module#VerifyPageModule',
+    canLoad: [AuthGuard]
   }
 ];
 @NgModule({

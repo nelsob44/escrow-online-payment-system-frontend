@@ -187,9 +187,30 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  signup(firstname: string, lastname: string, email: string, password: string, confirmpassword: string, country: string) {
-    let newUser = {firstname: firstname, lastname: lastname, email: email, password: password, confirmpassword: confirmpassword, country: country };
+  signup(
+    firstname: string, 
+    lastname: string, 
+    email: string, 
+    password: string, 
+    confirmpassword: string, 
+    country: string, 
+    secretquestion: string,
+    secretanswer: string,
+    phone: number
+    ) {
+    let newUser = {
+      firstname: firstname, 
+      lastname: lastname, 
+      email: email, 
+      password: password, 
+      confirmpassword: confirmpassword, 
+      country: country,
+      secretquestion: secretquestion,
+      secretanswer: secretanswer,
+      phone: phone
+    };
     const url = environment.baseUrl + '/signup';
+    console.log(newUser);
     return this.http.post<AuthResponseData>(url, JSON.stringify(newUser), {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

@@ -41,6 +41,9 @@ export class LoginPage implements OnInit {
     const confirmpassword = form.value.confirmpassword;
     const country = form.value.country;
     const terms = form.value.terms;
+    const secretquestion = form.value.secretquestion;
+    const secretanswer = form.value.secretanswer;
+    const phone = form.value.phone;
     
 
     if (!this.isLogin) {
@@ -64,7 +67,7 @@ export class LoginPage implements OnInit {
 
       if(!this.isLogin) {
         
-        authObs = this.authService.signup(firstname, lastname, email, password, confirmpassword, country);
+        authObs = this.authService.signup(firstname, lastname, email, password, confirmpassword, country, secretquestion, secretanswer, phone);
       }
       else {
         authObs = this.authService.login(email, password);
@@ -78,8 +81,9 @@ export class LoginPage implements OnInit {
         if (!this.isLogin) {
           this.router.navigateByUrl('/tabs/home');
           this.showAlert('Account created. You can now proceed to log in');
+          this.isLogin = true;
         } else {
-          this.router.navigateByUrl('/tabs/home');
+          this.router.navigateByUrl('/verify');
           this.showAlert('You are now logged in');          
         }
         

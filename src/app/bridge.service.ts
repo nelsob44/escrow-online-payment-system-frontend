@@ -7,15 +7,30 @@ import { environment } from 'src/environments/environment';
 import { Item } from './models/item.model';
 import {Payment} from './models/payment.model';
 import { User } from './auth/user.model';
+import { Verify } from './models/verify.model';
+import { isArray } from 'util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BridgeService {
   private _items = new BehaviorSubject<Item[]>([]);
+  private _verified = new BehaviorSubject<boolean>(false);
 
   get items() {
     return this._items.asObservable();
+  }
+
+  get isVerified() {
+    return this._verified.asObservable().pipe(
+      map(verified => {
+        if(verified) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
   
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -280,7 +295,7 @@ export class BridgeService {
       imeiFirst: imeiFirst,
       imeiLast: imeiLast
     };
-    console.log(uploadData);
+    
     const url = environment.baseUrl + '/payment-intent';
    
     return this.authService.token.pipe(
@@ -299,6 +314,56 @@ export class BridgeService {
         }));
       })
     );    
+  }
+
+  fetchverifysecret(id: string) {
+    const url = environment.baseUrl + '/verify';
+    const uploadData = new FormData();
+    uploadData.append('id', id);
+    
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        return this.http.post<any>(url, uploadData,
+          {headers: {Authorization: 'Bearer ' + token}}
+        )
+      }),
+      map(data => {      
+         
+          return new Verify(
+            data.secrets[0],
+            data.secrets[1]
+          );          
+    }));
+  }
+
+  verifySecretAnswer(secretCharactersChosen: any[]) {
+    const URL = environment.baseUrl + '/verify-answer';
+    const uploadData = new FormData();
+    
+    secretCharactersChosen.forEach(ans => {
+      uploadData.append('secrets[]', ans);
+    });
+    
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        
+        return this.http.post<any>(URL, uploadData, 
+        {headers: {Authorization: 'Bearer ' + token}}
+        ).pipe(
+          map(data => {  
+            if(isArray(data.secrets) && data.secrets.length == 3) {
+              this._verified.next(true);
+            } else {
+              this._verified.next(false);
+            }
+            
+            return data.secrets;
+          })
+        );
+      })
+    );  
   }
 
   fetchpayments(email: string, page: number = null) {    

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
 import { User } from '../user.model';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage implements OnInit, OnDestroy {
   isLoading = false;
   private userSub: Subscription;
   profile: User;
@@ -20,7 +20,9 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.userSub = this.authService.user.subscribe(user => {
-      this.profile = user;
+      if(user) {
+        this.profile = user;
+      }
       
       this.isLoading = false; 
     });    
@@ -33,5 +35,13 @@ export class ProfilePage implements OnInit {
   onClickViewPayments() {
     this.router.navigate(['/payment']);
   }
+
+  ngOnDestroy() {
+    if(this.userSub) {
+      this.userSub.unsubscribe();
+    }
+    
+  }
+
 
 }
