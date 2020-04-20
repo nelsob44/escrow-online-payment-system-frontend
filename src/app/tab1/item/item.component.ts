@@ -66,6 +66,7 @@ export class Item1Component implements OnInit, OnDestroy {
 
   private onClickPay(id: string) {    
     return this.paymentIntentSub = this.bridgeService.addPaymentIntentStripe(
+      this.item.id,
       this.item.itemName,
       this.item.itemPrice,
       this.item.currency,

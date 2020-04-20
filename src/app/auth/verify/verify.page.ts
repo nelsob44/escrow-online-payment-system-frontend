@@ -66,14 +66,16 @@ export class VerifyPage implements OnInit, OnDestroy {
           let newNumArray2 = new Uint32Array(newNumArray);
           newNumArray2 = newNumArray2.sort();
           this.loadedSecretCharacters = newNumArray2;
-          
+          console.log(this.loadedSecretCharacters);
         } else {
+          
           this.router.navigate(['/login']);
         }      
         this.isLoading = false;  
       
       });
     } else {
+      
       this.router.navigate(['/login']);
     }
 
@@ -84,6 +86,7 @@ export class VerifyPage implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
+    console.log(this.secretCharactersChosen);
     if(this.secretCharactersChosen.length != 3) {
       this.showAlert('Please enter all values');
       this.secretCharactersChosen = [];
@@ -93,7 +96,12 @@ export class VerifyPage implements OnInit, OnDestroy {
       return;
     }
     this.answerSub = this.bridgeService.verifySecretAnswer(this.secretCharactersChosen).subscribe(secrets => {
-      if(secrets && isArray(secrets)) {        
+      console.log('returned secrets');
+      console.log(secrets);
+      if(secrets && isArray(secrets)) { 
+        this.numberCharacters = 0;
+        this.loadedSecretCharacters = [];
+        this.secretCharactersChosen = [];       
         this.router.navigate(['/tabs/home']);
       } else {
         this.secretCharactersChosen = [];

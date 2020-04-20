@@ -6,6 +6,8 @@ import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { Router } from '@angular/router';
 import { BridgeService } from 'src/app/bridge.service';
 import { Subscription } from 'rxjs';
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-payment-modal',
@@ -19,7 +21,7 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() title = 'Continue Payment';
 
   @ViewChild('cardInfo', {static: false}) cardInfo: ElementRef;
-
+  public payPalConfig ? : IPayPalConfig;
   stripe;
   loading = false;
   confirmation;
@@ -45,7 +47,8 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_qkCQMaN7xcuxD4z2rZvZIRDR').then(
+    const stripePubKey = environment.publishableKeyStripe;
+    this.stripeService.setPublishableKey(stripePubKey).then(
     stripe=> {
       this.stripe = stripe;
       const elements = stripe.elements();
@@ -75,9 +78,9 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
     }).then(alertEl => alertEl.present());
   }
 
-  onSubmit(clientSecret: string, buyer: string, buyerEmail: string, itemPrice: number, intent_id: string, currency: string, realAmount: number, description: string, sellerId: number, sellerEmail: string) {
+  onSubmit(itemId: string, clientSecret: string, buyer: string, buyerEmail: string, itemPrice: number, intent_id: string, currency: string, realAmount: number, description: string, sellerId: number, sellerEmail: string) {
     
-    this.intentSub = this.bridgeService.storePaymentIntent(buyer, buyerEmail, itemPrice,
+    this.intentSub = this.bridgeService.storePaymentIntent(itemId, buyer, buyerEmail, itemPrice,
       intent_id, currency, realAmount, description, sellerId, sellerEmail
     ).subscribe(() => {
       this.stripe.confirmCardPayment(clientSecret, {

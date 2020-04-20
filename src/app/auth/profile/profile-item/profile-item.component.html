@@ -1,4 +1,4 @@
-
+ 
 <ion-list lines="inset">
   <ion-buttons slot="primary">
     <ion-avatar slot="start" class="avatar">
@@ -15,36 +15,36 @@
     <ion-label>
       First Name:
     </ion-label>
-    <ion-card-title>{{profile.firstname}}</ion-card-title>
+    <ion-text>{{profile.firstname}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-label>
       Last Name:
     </ion-label>
-    <ion-card-title>{{profile.lastname}}</ion-card-title>
+    <ion-text>{{profile.lastname}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-label>
       Email:
     </ion-label>
-    <ion-card-title>{{profile.email}}</ion-card-title>
+    <ion-text>{{profile.email}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-label>
       Country:
     </ion-label>
-    <span><ion-avatar><img src="http://3.bp.blogspot.com/-Zu3sWj8MGh4/Tq-wy7bPwBI/AAAAAAAAAMg/tZtDlFdoqt4/s1600/EnglandFlag.png"></ion-avatar>{{profile.flag}}</span><ion-card-title>{{profile.country}}</ion-card-title>
+    <span><ion-avatar><img src="{{profile.flag}}"></ion-avatar></span><ion-text>{{profile.country}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-label>
       Phone:
     </ion-label>
-    <ion-card-title>{{profile.phone}}</ion-card-title>
+    <ion-text>{{profile.phone}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-label>
       Status:
     </ion-label>
-    <ion-card-title>{{profile.status === 3 ? 'Admin' : 'Basic user'}}</ion-card-title>
+    <ion-text>{{profile.status === 3 ? 'Admin' : 'Basic user'}}</ion-text>
   </ion-item>
 </ion-list>

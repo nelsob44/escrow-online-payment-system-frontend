@@ -10,6 +10,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<p>Admin page</p>
+<ion-content class="no-padding">
+  <ion-row>
+    <ion-col size="4" class="first-column">
+      <div>
+        <ion-card>
+          <ion-item (click)="onClearCache()">
+            <ion-chip color="tertiary">
+              <ion-label color="dark"><ion-card-title>Clear Cache</ion-card-title></ion-label>
+            </ion-chip>
+          </ion-item>                    
+        </ion-card>
+        <ion-card>
+          <ion-item (click)="onClickViewPayments()">
+            <ion-chip color="tertiary">
+              <ion-label color="dark"><ion-card-title>Pending payments</ion-card-title></ion-label>
+            </ion-chip>
+          </ion-item>                    
+        </ion-card>
+        
+      </div>
+    </ion-col>
+    <ion-col size-sm="12" size-md="8" size-lg="8"> 
+      <p>Admin works!</p>
+      
+    </ion-col>
+  </ion-row>  
 </ion-content>

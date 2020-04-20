@@ -53,7 +53,8 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     redirectTo: '/tabs/home',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canLoad: [AuthGuard, VerifiedGuard]
   },
   { 
     path: 'verify', 

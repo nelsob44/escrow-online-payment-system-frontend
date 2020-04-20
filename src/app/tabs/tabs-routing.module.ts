@@ -10,16 +10,6 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'home',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
-          }
-        ]
-      },
-      {
         path: 'add-product',
         children: [
           {
@@ -31,13 +21,23 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'home',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+          }
+        ]
+      },      
+      {
         path: 'my-items',
         children: [
           {
             path: '',
             loadChildren: () =>
               import('../tab3/tab3.module').then(m => m.Tab3PageModule),
-            canLoad: [AuthGuard, VerifiedGuard]
+            canLoad: [VerifiedGuard]
           }
         ]
       },

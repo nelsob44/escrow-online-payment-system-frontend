@@ -30,7 +30,18 @@ export class RequestResetPage implements OnInit {
     }
     const email = form.value.email;
     this.authService.sendPasswordResetLink(email).subscribe(
-      data => console.log(data),
+      data => this.notify.success(data.message, 'Success!', {
+          timeout: 3000,
+          showProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          buttons: [            
+            {text: 'Okay!', action: (toast) => {
+              this.notify.remove(toast.id); 
+              }, bold: false
+            },
+          ]
+        }),
       error => this.notify.error(error.error.error)
     );
   }

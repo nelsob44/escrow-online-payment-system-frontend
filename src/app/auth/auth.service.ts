@@ -16,7 +16,7 @@ export interface AuthResponseData {
 }
 
 export interface ResetData {  
-  access_token: string;  
+  message: string;  
 }
 
 @Injectable({
@@ -113,8 +113,9 @@ export class AuthService implements OnDestroy {
 
   get isLoggedIn() {
     return this._user.asObservable().pipe(
-      map(user => {
-        if(user) {
+      take(1),
+      map(user => {        
+        if(user) {          
           let payloadVal = user.token.split('.')[1];
           let payloadValue = JSON.parse(atob(payloadVal));
           
@@ -177,6 +178,7 @@ export class AuthService implements OnDestroy {
       }),
       tap(user => {
         if(user) {
+          
           this._user.next(user);
           this.autoLogout(user.tokenDuration);
         }
@@ -210,7 +212,7 @@ export class AuthService implements OnDestroy {
       phone: phone
     };
     const url = environment.baseUrl + '/signup';
-    console.log(newUser);
+    
     return this.http.post<AuthResponseData>(url, JSON.stringify(newUser), {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -257,7 +259,7 @@ export class AuthService implements OnDestroy {
     );
     
     this._user.next(user);
-    
+        
     this.autoLogout(user.tokenDuration);
     this.storeAuthData(
       user.id,
@@ -322,7 +324,7 @@ export class AuthService implements OnDestroy {
       clearTimeout(this.activeLogoutTimer);
     }
     this._user.next(null);
-    Plugins.Storage.remove({ key: 'authData' });
+    Plugins.Storage.remove({ key: '_cap_authData' });
     this.router.navigateByUrl('/login');
   }
 

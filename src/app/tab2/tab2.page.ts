@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BridgeService } from 'src/app/bridge.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { switchMap, take, map } from 'rxjs/operators';
 import { Item } from 'src/app/models/item.model';
@@ -38,9 +38,11 @@ export class Tab2Page implements OnInit, OnDestroy {
   form: FormGroup;  
   filesToUpload: any = [];
   private itemSub: Subscription;
+  isLoading = false;
 
   constructor(private bridgeService: BridgeService,
   private route: ActivatedRoute, 
+  private loadingCtrl: LoadingController,
   private alertCtrl: AlertController,
   private router: Router) {}
 
@@ -97,56 +99,89 @@ export class Tab2Page implements OnInit, OnDestroy {
     if(!this.form.value) {
       return;
     }
+    this.loadingCtrl.create({keyboardClose: true, message: 'Creating item....'})
+    .then(loadingEl => {
+      loadingEl.present();
 
-    if(this.filesToUpload.length > 0) {
-      return this.itemSub = this.bridgeService.uploadImage(this.filesToUpload).pipe(
-        take(1),
-        switchMap(paths => {
+      if(this.filesToUpload.length > 0) {
+        return this.itemSub = this.bridgeService.uploadImage(this.filesToUpload).pipe(
+          take(1),
+          switchMap(paths => {
+            
+            return this.bridgeService.addItem(
+              this.form.value.itemName,
+              this.form.value.itemPrice,
+              this.form.value.currency,
+              paths,
+              this.form.value.buyerName,
+              this.form.value.connectionChannel,
+              this.form.value.itemDescription,
+              this.form.value.itemSerialNo,
+              this.form.value.itemModelNo,
+              this.form.value.imeiFirst,
+              this.form.value.imeiLast
+            );
+          })
+        ).subscribe(data => {
+          this.filesToUpload = [];
+          this.form.reset();     
+          const message = `<p>Your item has been created and your search ID has been emailed to you.</p>
+                          <p>Search ID: <b>${data.searchId}</b></p>`;
+          this.showAlert(message);    
+          this.router.navigate(['/tabs/my-items']);
+          loadingEl.dismiss();
+        }, errorResponse => {
+          loadingEl.dismiss();
+          console.log(errorResponse);
+          const errorCode = errorResponse.error.errors;
+          if(errorCode === 'Property [email_verified_at] does not exist on the Eloquent builder instance.') {
+            let displayCode = 'Sorry, you need to verify your email first before you can add an item';
+            this.showAlert(displayCode);  
+          } else {
+            this.showAlert(errorCode);
+          }
+        
+          this.isLoading = false;
+        });
+      } else {
+        return this.itemSub = this.bridgeService.addItem(
+              this.form.value.itemName,
+              this.form.value.itemPrice,
+              this.form.value.currency,
+              [],
+              this.form.value.buyerName,
+              this.form.value.connectionChannel,
+              this.form.value.itemDescription,
+              this.form.value.itemSerialNo,
+              this.form.value.itemModelNo,
+              this.form.value.imeiFirst,
+              this.form.value.imeiLast            
+            ).subscribe(data => {
+              this.filesToUpload = [];
+              this.form.reset();   
+              const message = `<p>Your item has been created and your search ID has been emailed to you.</p>
+                              <p>Search ID: <b>${data.searchId}</b></p>`;
+              this.showAlert(message);         
+              this.router.navigate(['/tabs/my-items']);
+            loadingEl.dismiss();
+        }, errorResponse => {
+          console.log(errorResponse);
+          loadingEl.dismiss();
           
-          return this.bridgeService.addItem(
-            this.form.value.itemName,
-            this.form.value.itemPrice,
-            this.form.value.currency,
-            paths,
-            this.form.value.buyerName,
-            this.form.value.connectionChannel,
-            this.form.value.itemDescription,
-            this.form.value.itemSerialNo,
-            this.form.value.itemModelNo,
-            this.form.value.imeiFirst,
-            this.form.value.imeiLast
-          );
-        })
-      ).subscribe(() => {
-        this.filesToUpload = [];
-        this.form.reset();        
-        this.router.navigate(['/tabs/my-items']);
-      });
-    } else {
-      return this.itemSub = this.bridgeService.addItem(
-            this.form.value.itemName,
-            this.form.value.itemPrice,
-            this.form.value.currency,
-            [],
-            this.form.value.buyerName,
-            this.form.value.connectionChannel,
-            this.form.value.itemDescription,
-            this.form.value.itemSerialNo,
-            this.form.value.itemModelNo,
-            this.form.value.imeiFirst,
-            this.form.value.imeiLast
-          ).pipe(
-            take(1)
-            // map(data => {
-            //   console.log(data);
-            // })
-          ).subscribe(() => {
-            this.filesToUpload = [];
-            this.form.reset();            
-            this.router.navigate(['/tabs/my-items']);
-          });
-    }
+          const errorCode = errorResponse.error.errors;
+          if(errorCode === 'Property [email_verified_at] does not exist on the Eloquent builder instance.') {
+            let displayCode = 'Sorry, you need to verify your email first before you can add an item';
+            this.showAlert(displayCode);  
+          } else {
+            this.showAlert(errorCode);
+          }   
+        
+          this.isLoading = false;
+        });
+      }
+    });
   }
+
 
   onImagePicked(imageData: string | File) {
     

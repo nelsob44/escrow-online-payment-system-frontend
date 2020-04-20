@@ -32,6 +32,13 @@
       </div>
     </ion-col>
     <ion-col size-sm="12" size-md="8" size-lg="8"> 
+      <ion-card>
+        <ion-item (click)="onClickVerifyEmail(profile.email)">
+          <ion-chip color="tertiary">
+            <ion-label color="dark"><ion-card-title>Resend verification email</ion-card-title></ion-label>
+          </ion-chip>
+        </ion-item>                    
+      </ion-card>
       <app-profile-item [profile]="profile"></app-profile-item>
       
     </ion-col>

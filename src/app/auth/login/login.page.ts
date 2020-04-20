@@ -92,7 +92,7 @@ export class LoginPage implements OnInit {
         
         const errorCode = errorResponse.error.error;
 
-        this.showAlert(errorCode);
+        this.showAlert('Sorry, this email has already been used. Try with a different email');
         this.isLoading = false;
       });      
     });

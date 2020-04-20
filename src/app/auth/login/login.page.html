@@ -113,9 +113,9 @@
               </ion-select>
             </ion-item>  
             <ion-item *ngIf="!isLogin">
-              <ion-label position="floating">Enter your secret answer (Just 1 word only)</ion-label>
+              <ion-label position="floating">Enter your secret answer (1 word only between 4 and 6 characters long)</ion-label>
               <ion-input type="text" ngModel name="secretanswer" 
-              required minlength="3" maxlength="10"
+              required minlength="4" maxlength="6"
               #secretAnswerCtrl="ngModel"></ion-input>
             </ion-item>  
             <ion-item *ngIf="!isLogin">

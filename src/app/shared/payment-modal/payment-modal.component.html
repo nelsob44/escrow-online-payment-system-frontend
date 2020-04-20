@@ -16,7 +16,7 @@
         <table>
           <tr>
             <td>
-              Payment Commission
+              Payment Commission & charges
             </td>
             <td>
               {{currency | uppercase}}{{' '}}{{commission | number : '.2-2'}}
@@ -42,7 +42,7 @@
       </ion-label>
     </ion-item>
   </ion-list>
-  
+    
   <div class="payment-modal" #paymentmodal>   
 
     <form #checkout="ngForm" (ngSubmit)="onSubmit(clientSecret, buyer, buyerEmail, itemPrice, intent_id, currency, realAmount, description, seller_id, seller_email)" class="checkout">

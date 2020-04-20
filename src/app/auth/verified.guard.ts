@@ -3,12 +3,13 @@ import { CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot
 import { Observable, of } from 'rxjs';
 import { take, switchMap, tap } from 'rxjs/operators';
 import { BridgeService } from '../bridge.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VerifiedGuard implements CanLoad {
-  constructor(private bridgeService: BridgeService, private router: Router) {}
+  constructor(private authService: AuthService, private bridgeService: BridgeService, private router: Router) {}
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
@@ -16,7 +17,7 @@ export class VerifiedGuard implements CanLoad {
      take(1),
      switchMap(isAuthenticated => {
         if(!isAuthenticated) {
-          this.router.navigateByUrl('/login');
+          return this.router.navigateByUrl('/login');
         } else {
           return of(isAuthenticated);
         }

@@ -23,7 +23,7 @@ export class BridgeService {
 
   get isVerified() {
     return this._verified.asObservable().pipe(
-      map(verified => {
+      map(verified => {        
         if(verified) {
           return true;
         } else {
@@ -110,6 +110,29 @@ export class BridgeService {
     }));       
   }
 
+  createPaypalOrder(data: any) { 
+
+    const url = environment.baseUrl + '/create-paypal-transaction';
+       
+    let uploadData = data;    
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        console.log(uploadData);
+        return this.http.post<any>(url, JSON.stringify(uploadData), {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          })
+        })
+        .pipe(tap(resData => {
+          
+          return resData;
+        }));
+      })
+    );         
+  }
+
   deleteItem(id: string) { 
 
     const url = environment.baseUrl + '/delete-item';
@@ -152,6 +175,44 @@ export class BridgeService {
           }          
           this._items.next(items);
           return items;
+    }));       
+  }
+
+  clearCache() {
+    const url = environment.baseUrl + '/admin/clear-cache';
+       
+    const uploadData = new FormData();
+        
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        return this.http.post<any>(url, uploadData,
+          {headers: {Authorization: 'Bearer ' + token}}
+        )
+      }),
+      map(data => {   
+        return data;         
+      }
+    ));
+  }
+
+  resendEmailVerification(email: string) {
+    
+    const url = environment.baseUrl + '/again';
+       
+    const uploadData = new FormData();
+    uploadData.append('email', email);
+
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        return this.http.post<any>(url, uploadData,
+          {headers: {Authorization: 'Bearer ' + token}}
+        )
+      }),
+      map(data => {      
+           
+          return data.message;
     }));       
   }
 
@@ -270,6 +331,7 @@ export class BridgeService {
   }
 
   addPaymentIntentStripe(
+    itemId: string,
     itemName: string,
     itemPrice: string,
     currency: string,
@@ -283,6 +345,7 @@ export class BridgeService {
     imeiLast: string
   ) {
     let uploadData = {
+      itemId: itemId,
       itemName: itemName, 
       itemPrice: itemPrice, 
       currency: currency,
@@ -297,6 +360,67 @@ export class BridgeService {
     };
     
     const url = environment.baseUrl + '/payment-intent';
+   
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        
+        return this.http.post<any>(url, JSON.stringify(uploadData), {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          })
+        })
+        .pipe(tap(resData => {
+          
+          return resData;
+        }));
+      })
+    );    
+  }
+
+  addPaypalApprovedOrder(
+    paypalOrderId: string,
+    itemId: string,
+    itemName: string,
+    amount: string,
+    description: string,
+    currency: string,
+    buyer: string,
+    commission: string,
+    itemPrice: string,
+    buyerEmail: string,
+    realAmount: string,
+    seller_id: string,
+    seller_email: string,
+    connectionChannel: string,
+    itemSerialNo?: string,
+    itemModelNo?: string,
+    imeiFirst?: string,
+    imeiLast?: string
+  ) {
+    let uploadData = {
+      paypalOrderId: paypalOrderId,
+      itemId: itemId,
+      itemName: itemName, 
+      amount: amount,
+      itemDescription: description,
+      currency: currency,
+      buyer: buyer,
+      commission: commission,
+      itemPrice: itemPrice, 
+      buyerEmail: buyerEmail,
+      realAmount: realAmount,
+      seller_id: seller_id, 
+      seller_email: seller_email,
+      connectionChannel: connectionChannel,      
+      itemSerialNo: itemSerialNo,
+      itemModelNo: itemModelNo,
+      imeiFirst: imeiFirst,
+      imeiLast: imeiLast
+    };
+    
+    const url = environment.baseUrl + '/create-paypal-payment';
    
     return this.authService.token.pipe(
       take(1),
@@ -387,7 +511,7 @@ export class BridgeService {
                   resData.data[key].id,
                   resData.data[key].intent_id,
                   resData.data[key].payment_option,
-                  resData.data[key].real_amount,                  
+                  resData.data[key].amount_paid,                  
                   resData.data[key].item_price,
                   resData.data[key].seller_email,
                   resData.data[key].buyer_name,
@@ -408,7 +532,8 @@ export class BridgeService {
     );      
   }
 
-  storePaymentIntent(    
+  storePaymentIntent( 
+    itemId: string,   
     buyer: string, 
     buyerEmail: string, 
     itemPrice: number, 
@@ -420,6 +545,7 @@ export class BridgeService {
     sellerEmail: string
     ) {
     let uploadData = {
+      itemId: itemId,
       intentId: intent_id, 
       buyer: buyer,
       realAmount: realAmount, 

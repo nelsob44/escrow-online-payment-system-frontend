@@ -9,7 +9,6 @@ import {ChoosePayModalComponent} from 'src/app/shared/choose-pay-modal/choose-pa
 import { ModalController, AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/auth.service';
-import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 
  
 @Component({
@@ -20,8 +19,7 @@ import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 export class ItemComponent implements OnInit, OnDestroy {
   @Input() item: Item;
   @ViewChild('payPalConfig', {static: false}) paypalElement: ElementRef;
-  
-  public payPalConfig?: IPayPalConfig;
+    
   paypal;
   private paymentIntentSub: Subscription;
   private emailSub: Subscription;
@@ -29,12 +27,12 @@ export class ItemComponent implements OnInit, OnDestroy {
   private buyerEmail: string;
   private canDelete: boolean = false;
   private showSuccess: boolean = false;
+  private useStripe: boolean = true;
   
   constructor(private modalCtrl: ModalController, private bridgeService: BridgeService,
   private router: Router, private authService: AuthService,
   public actionSheetController: ActionSheetController,
   private alertCtrl: AlertController) { }
-
 
   ngOnInit() {
     this.emailSub = this.authService.userEmail.subscribe(email => {
@@ -59,11 +57,14 @@ export class ItemComponent implements OnInit, OnDestroy {
       buttons: [{
         text: 'Pay with Credit/Debit Card',                
         handler: () => {
+          this.useStripe = true;
           this.onClickPay(id);
         }      
       }, {
         text: 'Pay with Paypal',        
         handler: () => {
+          this.useStripe = false;
+          this.onClickPaypal(id);
           console.log('Paypal clicked');
         }      
       }]
@@ -73,6 +74,7 @@ export class ItemComponent implements OnInit, OnDestroy {
 
   private onClickPay(id: string) {    
     return this.paymentIntentSub = this.bridgeService.addPaymentIntentStripe(
+      this.item.id,
       this.item.itemName,
       this.item.itemPrice,
       this.item.currency,
@@ -86,7 +88,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     ).pipe(
       
       map(intent => {        
-        this.presentModal(intent.intent.id, intent.intent.description,
+        this.presentModal(intent.intent.id, this.item.id, intent.intent.description,
         intent.intent.amount,
         intent.intent.currency,
         this.item.buyerName,
@@ -103,6 +105,16 @@ export class ItemComponent implements OnInit, OnDestroy {
     
   }
 
+  private onClickPaypal(id: string) {
+    this.presentModal(null, this.item.id, this.item.itemDescription,
+        this.item.itemPrice,
+        this.item.currency,
+        this.item.buyerName,
+        null,
+        this.buyerEmail
+    );
+  }
+
   private showAlert(message: string) {
     this.alertCtrl.create({      
       message: message,
@@ -111,28 +123,42 @@ export class ItemComponent implements OnInit, OnDestroy {
   }
 
   private presentModal(id: string, 
+  itemId: string,
   description: string, 
-  amount: number, 
+  amount: any, 
   currency: string,
   buyer: string,
-  clientSecret: string,
-  buyerEmail: string
+  buyerEmail: string,
+  itemName?: string,
+  clientSecret?: string,  
+  connectionChannel?: string,      
+  itemSerialNo?: string,
+  itemModelNo?: string,
+  imeiFirst?: string,
+  imeiLast?: string
   ) {
     this.modalCtrl.create({
-      component: PaymentModalComponent,
+      component: this.useStripe ? PaymentModalComponent : ChoosePayModalComponent,
       componentProps: {
-        'intent_id': id,
-        'amount': amount,
+        'itemId': this.item.id,
+        'itemName': this.item.itemName,
+        'intent_id': this.useStripe ? id : null,
+        'amount': this.useStripe ? amount : ((+this.item.itemPrice) + (+this.item.itemPrice * 0.09)),
         'description': description,
         'currency': currency,
         'buyer' : buyer,
-        'commission' : (amount/100) - (+this.item.itemPrice),
+        'commission' : this.useStripe ? (amount/100) - (+this.item.itemPrice) : (+this.item.itemPrice * 0.09),
         'itemPrice' : +(this.item.itemPrice),
-        'clientSecret' : clientSecret,
-        'buyerEmail' : buyerEmail,
-        'realAmount': amount/100,
+        'clientSecret' : this.useStripe ? clientSecret : null,
+        'buyerEmail' : this.buyerEmail,
+        'realAmount': this.useStripe ? (amount/100) : (((+this.item.itemPrice) + (+this.item.itemPrice * 0.09)) - ((+this.item.itemPrice) + (+this.item.itemPrice * 0.09)) * 0.04),
         'seller_id': this.item.sellerId,
-        'seller_email': this.item.sellerEmail
+        'seller_email': this.item.sellerEmail,
+        'connectionChannel': this.item.connectionChannel,
+        'itemSerialNo': this.item.itemSerialNo,
+        'itemModelNo': this.item.itemModelNo,
+        'imeiFirst': this.item.imeiFirst,
+        'imeiLast': this.item.imeiLast
       }
     }).then(modalEl => {
       modalEl.onDidDismiss().then(modalData => {
