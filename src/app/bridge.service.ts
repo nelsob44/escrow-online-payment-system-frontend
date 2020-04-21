@@ -502,14 +502,13 @@ export class BridgeService {
         return this.http.post<any>(url, uploadData, 
           {headers: {Authorization: 'Bearer ' + token}}
         ).pipe(map(resData => {
-            
+            console.log(resData);
             const payments = [];
           for (const key in resData.data) {
             if(resData.data.hasOwnProperty(key)) {
               payments.push(
                 new Payment(
-                  resData.data[key].id,
-                  resData.data[key].intent_id,
+                  resData.data[key].id,                  
                   resData.data[key].payment_option,
                   resData.data[key].amount_paid,                  
                   resData.data[key].item_price,

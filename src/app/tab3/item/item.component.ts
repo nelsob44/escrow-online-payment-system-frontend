@@ -88,12 +88,17 @@ export class ItemComponent implements OnInit, OnDestroy {
     ).pipe(
       
       map(intent => {        
-        this.presentModal(intent.intent.id, this.item.id, intent.intent.description,
+        this.presentModal(
+        intent.intent.id, 
+        this.item.id, 
+        intent.intent.description,
         intent.intent.amount,
         intent.intent.currency,
         this.item.buyerName,
+        this.buyerEmail,
+        this.item.itemName,
         intent.intent.client_secret,
-        this.buyerEmail);
+        );
       }, errorResponse => {
         const errorCode = errorResponse.error.message;
 

@@ -50,10 +50,10 @@
         <ion-card *virtualItem="let item; let itemBounds = bounds;" class="card-payment">
           
         <ion-card-header>
-          <ion-card-title>Payment Amount: {{item.currency | uppercase }}{{''}}{{ item.itemPrice }}</ion-card-title>
+          <ion-card-title>Payment Amount: {{item.currency | uppercase }}{{' '}}{{ item.itemPrice }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>Payment owner: {{ item.sellerEmail }}</ion-card-content>
-
+        <ion-card-content>Payment method used: {{ item.paymentOption | titlecase }}</ion-card-content>
         <ion-card-content>Description: {{ item.itemDescription }}</ion-card-content>
         <ion-card-content>Date of Payment Initiation: {{ item.paymentDate }}</ion-card-content>
         <section>          

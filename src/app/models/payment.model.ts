@@ -1,7 +1,6 @@
 export class Payment {
     constructor(        
-        public id: string,
-        public intentId: string,
+        public id: string,        
         public paymentOption: string,
         public amountPaid: number,
         public itemPrice: number,

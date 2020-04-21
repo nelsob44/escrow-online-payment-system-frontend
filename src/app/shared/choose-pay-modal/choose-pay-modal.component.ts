@@ -53,10 +53,10 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
       this.initConfig(); 
     }
  
-    private initConfig(): void {
+    private async initConfig(){
       
       const url = environment.baseUrl;
-        this.payPalConfig = {
+        this.payPalConfig = await {
             currency: this.currency,
             clientId: environment.paypalClientId,
             createOrderOnClient: (data) => <ICreateOrderRequest>{
@@ -93,14 +93,16 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
             
             onApprove: (data, actions) => {
                 console.log('onApprove - transaction was approved, but not authorized', data, actions);
-                this.orderId = data.orderID;                
+                this.orderId = data.orderID;    
+                this.saveApprovedTransactionToServer(this.orderId);
                 actions.order.get().then(details => {
                     console.log('onApprove - you can get full order details inside onApprove: ', details);                    
                 }); 
             },
             onClientAuthorization: (data) => {
                 console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-                this.showSuccess = true;                
+                this.showSuccess = true;  
+                              
             },
             onCancel: (data, actions) => {
                 console.log('OnCancel', data, actions);
@@ -116,19 +118,20 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
                 // resetStatus();
             },
         };
+        
       }
 
     onCancelModal() {
       console.log('cancelled modal');
       if(this.orderId !== null) {
-        this.savetransactionToServer(this.orderId);
+        this.saveCompleteTransactionToServer(this.orderId);
       } else {
         this.modalCtrl.dismiss();
       }
       
     }
 
-    public savetransactionToServer(orderid: string) {
+    public saveApprovedTransactionToServer(orderid: string) {
       console.log(this.orderId);
       return this.saveApproveSub = this.bridgeService.addPaypalApprovedOrder(
         orderid,
@@ -151,8 +154,13 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
         this.imeiLast
       ).subscribe(data => {
         console.log(data);
-        this.modalCtrl.dismiss();
+        
       });
+    }
+
+    saveCompleteTransactionToServer(orderId: string) {
+      console.log(orderId);
+      this.modalCtrl.dismiss();
     }
 
     ngOnDestroy() {

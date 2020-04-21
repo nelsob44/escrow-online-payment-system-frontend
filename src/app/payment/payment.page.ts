@@ -75,7 +75,7 @@ export class PaymentPage implements OnInit, OnDestroy {
   ionViewWillEnter() {
     this.isLoading = true;
     this.paymentSub = this.bridgeService.fetchpayments(this.usefulEmail, this.page).subscribe(payments => {
-      
+     
       if(payments && payments.length > 0) {
         this.hasPayments = true;
         this.loadedPayments = payments;  

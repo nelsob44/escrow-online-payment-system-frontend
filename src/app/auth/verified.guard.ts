@@ -17,7 +17,8 @@ export class VerifiedGuard implements CanLoad {
      take(1),
      switchMap(isAuthenticated => {
         if(!isAuthenticated) {
-          return this.router.navigateByUrl('/login');
+          // return this.router.navigateByUrl('/login');
+          return this.authService.autoLogin();
         } else {
           return of(isAuthenticated);
         }
