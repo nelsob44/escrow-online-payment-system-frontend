@@ -1,6 +1,7 @@
 export class Payment {
     constructor(        
-        public id: string,        
+        public id: string,    
+        public hashId: string,    
         public paymentOption: string,
         public amountPaid: number,
         public itemPrice: number,

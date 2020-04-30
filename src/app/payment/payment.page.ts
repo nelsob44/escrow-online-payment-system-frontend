@@ -13,6 +13,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class PaymentPage implements OnInit, OnDestroy {
   private paymentSub: Subscription;
+  private sendPaymentSub: Subscription;
   private usefulEmail: string;
   private emailSub: Subscription;
   loadedPayments: Payment[];
@@ -97,8 +98,38 @@ export class PaymentPage implements OnInit, OnDestroy {
     this.router.navigate(['/tabs/add-product']);
   }
 
-  onCompletePayment(id: number) {
-    console.log('complete');
+  private onCompletePayment(id: number) {
+    this.loadingCtrl.create({keyboardClose: true, message: 'Initiating payout....'})
+    .then(loadingEl => {
+      loadingEl.present();
+
+      this.sendPaymentSub = this.bridgeService.sendSellerPayment(id).subscribe(data => {
+        
+        if(data) {
+          this.showAlert(data.message);
+          setTimeout(() => {
+            location.reload();
+          },3000);
+        } 
+      loadingEl.dismiss();   
+    }, errorResponse => {
+        loadingEl.dismiss();
+        
+        const errorCode = errorResponse.error.errors;
+                
+        this.showAlert(errorCode);
+       
+        this.isLoading = false;
+      });
+    });
+    
+  }
+
+  private showAlert(message: string) {
+    this.alertCtrl.create({      
+      message: message,
+      buttons: ['Okay']
+    }).then(alertEl => alertEl.present());
   }
 
   async presentAlertConfirm(id: number) {
@@ -111,7 +142,7 @@ export class PaymentPage implements OnInit, OnDestroy {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            console.log('Confirm Cancel');
           }
         }, {
           text: 'Okay',
@@ -126,9 +157,17 @@ export class PaymentPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.paymentSub || this.emailSub) {
+    if(this.paymentSub) {
       this.paymentSub.unsubscribe();
+      
+    }
+    if(this.emailSub) {
+      
       this.emailSub.unsubscribe();
+    }
+    if(this.sendPaymentSub) {
+      this.sendPaymentSub.unsubscribe();
+      
     }
   }
 

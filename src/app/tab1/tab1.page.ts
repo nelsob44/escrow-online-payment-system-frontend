@@ -6,6 +6,7 @@ import { BridgeService } from '../bridge.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
+import { Payment } from '../models/payment.model';
 
 @Component({
   selector: 'app-tab1',
@@ -17,11 +18,13 @@ export class Tab1Page implements OnInit, OnDestroy{
   form: FormGroup;
   loadedItems: Item[];
   isLoading = false;
-  private itemsSub: Subscription;
   private searchItemSub: Subscription;
   private userName: string;
   private userNameSub: Subscription;
+  private searchPaymentSub: Subscription;
   isLoggedIn = false;
+  isPaid = false;
+  loadedPayment: Payment;
   
   constructor(private bridgeService: BridgeService,
   private route: ActivatedRoute, 
@@ -34,7 +37,11 @@ export class Tab1Page implements OnInit, OnDestroy{
     this.form = new FormGroup({
       itemId: new FormControl(null, {
         updateOn: 'blur',
-        validators: [Validators.required, Validators.min(1)]
+        validators: []
+      }),
+      paymentId: new FormControl(null, {
+        updateOn: 'blur',
+        validators: []
       })
     });
   }
@@ -50,22 +57,22 @@ export class Tab1Page implements OnInit, OnDestroy{
 
   refreshFilter() {    
     this.loadedItems = [];
+    this.loadedPayment = null;
+    this.form.reset();
   }
 
   onSearchProductCode() {
-    if(!this.form.valid) {
+    if(!this.form.value.itemId) {
       return;
     }
     
-    this.loadingCtrl.create({keyboardClose: true, message: 'Searching....'})
+    this.loadingCtrl.create({keyboardClose: true, message: 'Searching for item....'})
     .then(loadingEl => {
       loadingEl.present();
 
       this.searchItemSub = this.bridgeService.searchitem(this.form.value.itemId).subscribe(item => {
         
-        if(item === "The search was not found") {
-          this.showAlert("The search was not found");
-        } else {
+        if(item) {          
           this.loadedItems = [];
           this.loadedItems.push(item); 
           this.form.reset();
@@ -73,18 +80,42 @@ export class Tab1Page implements OnInit, OnDestroy{
       loadingEl.dismiss();   
     }, errorResponse => {
         loadingEl.dismiss();
-        const errorCode = errorResponse.error.message;
-        const errorMessage = "Sorry, the item with ID" + " " + "<b>" + this.form.value.itemId + "</b>" + " " + "was not found.";
-
-        
-        if (errorCode.includes("No query results for model [App\\SearchId]")) {
-          
-            this.showAlert(errorMessage);
-        }     
+        const errorCode = errorResponse.error.errors;
+             
+        this.showAlert(errorCode);
+         
         this.isLoading = false;
       });
     });    
     
+  }
+
+  onSearchTransaction() {
+    if(!this.form.value.paymentId) {
+      return;
+    }
+
+    this.loadingCtrl.create({keyboardClose: true, message: 'Searching for transaction....'})
+    .then(loadingEl => {
+      loadingEl.present();
+
+      this.searchPaymentSub = this.bridgeService.searchpayment(this.form.value.paymentId).subscribe(payment => {
+        
+        if(payment) {
+          this.loadedPayment = payment;
+          this.isPaid = true;
+          this.form.reset();
+        }
+      loadingEl.dismiss();   
+    }, errorResponse => {
+        loadingEl.dismiss();
+        const errorCode = errorResponse.error.errors;
+             
+        this.showAlert(errorCode);
+         
+        this.isLoading = false;
+      });
+    });
   }
 
   onCreateItem() {
@@ -104,6 +135,16 @@ export class Tab1Page implements OnInit, OnDestroy{
 
 
   ngOnDestroy() {
+    if(this.searchPaymentSub) {
+      this.searchPaymentSub.unsubscribe();
+    }
+    if(this.searchItemSub) {
+      this.searchItemSub.unsubscribe();
+    }
+
+    if(this.userNameSub) {
+      this.userNameSub.unsubscribe();
+    }
 
   }
 

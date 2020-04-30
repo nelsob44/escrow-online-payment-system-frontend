@@ -40,11 +40,10 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.authSub = this.authService.isLoggedIn.subscribe(isAuth => {
-      if(!isAuth && this.previousAuthState !== isAuth) {
-        this.router.navigateByUrl('/login');
-      }
-      this.previousAuthState = isAuth;      
+    this.authSub = this.authService.user.subscribe(user => {      
+      if(user) {
+        this.previousAuthState = true;
+      }      
     });
   }
 
@@ -59,7 +58,7 @@ export class AppComponent {
   }   
 
   onLogout() {
-    this.authService.logout();
-    
+    this.authService.logout();  
+    this.router.navigateByUrl('/login');  
   }
 }

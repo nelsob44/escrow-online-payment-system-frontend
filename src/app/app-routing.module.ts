@@ -24,7 +24,7 @@ const routes: Routes = [
   { 
     path: 'profile', 
     loadChildren: './auth/profile/profile.module#ProfilePageModule', 
-    canLoad: [AuthGuard, VerifiedGuard]
+    canActivate: [AuthGuard, VerifiedGuard]
   },
   { 
     path: 'signup', 
@@ -33,33 +33,33 @@ const routes: Routes = [
   { 
     path: 'admin', 
     loadChildren: './admin/admin.module#AdminPageModule',
-    canLoad: [AuthGuard, VerifiedGuard, AdminGuard] 
+    canActivate: [AuthGuard, VerifiedGuard, AdminGuard] 
   },
   { 
     path: 'item-detail/:itemId', 
     loadChildren: './item-detail/item-detail.module#ItemDetailPageModule', 
-    canLoad: [AuthGuard, VerifiedGuard]
+    canActivate: [AuthGuard, VerifiedGuard]
   },
   { 
     path: 'payment', 
     loadChildren: './payment/payment.module#PaymentPageModule',
-    canLoad: [AuthGuard, VerifiedGuard]
+    canActivate: [AuthGuard, VerifiedGuard]
   },
   { 
     path: 'edit-profile/:profileId', 
     loadChildren: './auth/profile/edit-profile/edit-profile.module#EditProfilePageModule',
-    canLoad: [AuthGuard, VerifiedGuard] 
+    canActivate: [AuthGuard, VerifiedGuard] 
   },
   {
     path: 'edit-profile',
     redirectTo: '/tabs/home',
     pathMatch: 'full',
-    canLoad: [AuthGuard, VerifiedGuard]
+    canActivate: [AuthGuard, VerifiedGuard]
   },
   { 
     path: 'verify', 
     loadChildren: './auth/verify/verify.module#VerifyPageModule',
-    canLoad: [AuthGuard]
+    canActivate: [AuthGuard]
   }
 ];
 @NgModule({

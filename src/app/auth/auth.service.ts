@@ -34,7 +34,7 @@ export class AuthService implements OnDestroy {
 
   get token() {
     return this._user.asObservable().pipe(
-      map(user => {
+      map(user => {       
         if(user) {
           return user.token;
         } else {
@@ -114,7 +114,8 @@ export class AuthService implements OnDestroy {
   get isLoggedIn() {
     return this._user.asObservable().pipe(
       take(1),
-      map(user => {        
+      map(user => {
+           
         if(user) {          
           let payloadVal = user.token.split('.')[1];
           let payloadValue = JSON.parse(atob(payloadVal));
@@ -324,7 +325,7 @@ export class AuthService implements OnDestroy {
       clearTimeout(this.activeLogoutTimer);
     }
     this._user.next(null);
-    Plugins.Storage.remove({ key: '_cap_authData' });
+    Plugins.Storage.remove({ key: 'authData' });
     this.router.navigateByUrl('/login');
   }
 

@@ -216,6 +216,25 @@ export class BridgeService {
     }));       
   }
 
+  checkEmailVerification() {
+    
+    const url = environment.baseUrl + '/check-emailverification';
+       
+    const uploadData = new FormData();
+    
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        return this.http.post<any>(url, uploadData,
+          {headers: {Authorization: 'Bearer ' + token}}
+        )
+      }),
+      map(data => {      
+           
+          return data.message;
+    }));       
+  }
+
   searchitem(id: string) { 
 
     const url = environment.baseUrl + '/my-item-search';
@@ -490,6 +509,132 @@ export class BridgeService {
     );  
   }
 
+  sendSellerPayment(id: number) {
+    const URL = environment.baseUrl + '/send-sellerpayment';        
+    let uploadData = {
+      id: id
+    };    
+
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        
+        return this.http.post<any>(URL, JSON.stringify(uploadData), {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          })
+        })
+        .pipe(tap(resData => {
+          
+          return resData;
+        }));
+      })
+    );  
+  }
+
+  searchpayment(paymentId: string) {
+    const URL = environment.baseUrl + '/search-payment';        
+    let uploadData = {
+      paymentId: paymentId
+    };    
+
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        
+        return this.http.post<any>(URL, JSON.stringify(uploadData), {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          })
+        })
+        .pipe(
+          map(resData => {
+          
+            return new Payment(
+                  resData.payment.id,                  
+                  resData.payment.hash_id,
+                  resData.payment.payment_option,
+                  resData.payment.amount_paid,                  
+                  resData.payment.item_price,
+                  resData.payment.seller_email,
+                  resData.payment.buyer_name,
+                  resData.payment.buyer_email,                  
+                  resData.payment.item_description,
+                  new Date(resData.payment.created_at),                  
+                  resData.payment.payment_status,
+                  resData.payment.currency,
+                  resData.payment.correct_payment                  
+              );               
+        }));
+      })
+    );  
+  }
+
+  searchpaymentAdmin(paymentId: string) {
+    const URL = environment.baseUrl + '/search-paymentadmin';        
+    let uploadData = {
+      paymentId: paymentId
+    };    
+
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        
+        return this.http.post<any>(URL, JSON.stringify(uploadData), {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          })
+        })
+        .pipe(
+          map(resData => {
+          
+            return new Payment(
+                  resData.payment.id,                  
+                  resData.payment.hash_id,
+                  resData.payment.payment_option,
+                  resData.payment.amount_paid,                  
+                  resData.payment.item_price,
+                  resData.payment.seller_email,
+                  resData.payment.buyer_name,
+                  resData.payment.buyer_email,                  
+                  resData.payment.item_description,
+                  new Date(resData.payment.created_at),                  
+                  resData.payment.payment_status,
+                  resData.payment.currency,
+                  resData.payment.correct_payment                  
+              );               
+        }));
+      })
+    );  
+  }
+
+  completePaypalOrder(id: string) {
+    const URL = environment.baseUrl + '/complete-paypalorder';        
+    let uploadData = {
+      id: id
+    };    
+
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        
+        return this.http.post<any>(URL, JSON.stringify(uploadData), {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          })
+        })
+        .pipe(tap(resData => {
+          
+          return resData.message;
+        }));
+      })
+    );  
+  }
+
   fetchpayments(email: string, page: number = null) {    
     const url = environment.baseUrl + '/payments?page=' + page;       
     const uploadData = new FormData();
@@ -502,13 +647,14 @@ export class BridgeService {
         return this.http.post<any>(url, uploadData, 
           {headers: {Authorization: 'Bearer ' + token}}
         ).pipe(map(resData => {
-            console.log(resData);
+           
             const payments = [];
           for (const key in resData.data) {
             if(resData.data.hasOwnProperty(key)) {
               payments.push(
                 new Payment(
                   resData.data[key].id,                  
+                  resData.data[key].hash_id,
                   resData.data[key].payment_option,
                   resData.data[key].amount_paid,                  
                   resData.data[key].item_price,

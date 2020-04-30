@@ -41,7 +41,8 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
   showError: boolean = false;
   public orderId: string = null;
   saveApproveSub: Subscription;
-  
+  saveCompleteOrderSub: Subscription;
+
   constructor(private modalCtrl: ModalController, private renderer: Renderer2,
   private cd: ChangeDetectorRef, private router: Router,    
     private bridgeService: BridgeService,
@@ -49,7 +50,7 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
     private authService: AuthService) { }
   
     ngOnInit(){      
-      console.log('description is ' + this.description);
+      
       this.initConfig(); 
     }
  
@@ -57,17 +58,17 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
       
       const url = environment.baseUrl;
         this.payPalConfig = await {
-            currency: this.currency,
+            currency: this.currency.trim(),
             clientId: environment.paypalClientId,
             createOrderOnClient: (data) => <ICreateOrderRequest>{
               intent: 'CAPTURE',
               purchase_units: [{
                 amount: {
-                  currency_code: this.currency,
+                  currency_code: this.currency.trim(),
                   value: this.amount,
                   breakdown: {
                     item_total: {
-                      currency_code: this.currency,
+                      currency_code: this.currency.trim(),
                       value: this.amount
                     }
                   }
@@ -77,7 +78,7 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
                   quantity: '1',
                   category: 'PHYSICAL_GOODS',
                   unit_amount: {
-                    currency_code: this.currency,
+                    currency_code: this.currency.trim(),
                     value: this.amount,
                   },
                 }]
@@ -92,47 +93,63 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
             },
             
             onApprove: (data, actions) => {
-                console.log('onApprove - transaction was approved, but not authorized', data, actions);
+                
                 this.orderId = data.orderID;    
                 this.saveApprovedTransactionToServer(this.orderId);
                 actions.order.get().then(details => {
-                    console.log('onApprove - you can get full order details inside onApprove: ', details);                    
+                    console.log('onApproved');                    
                 }); 
             },
             onClientAuthorization: (data) => {
-                console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
                 this.showSuccess = true;  
-                              
+                this.saveCompleteTransactionToServer(this.orderId);
             },
             onCancel: (data, actions) => {
-                console.log('OnCancel', data, actions);
+                console.log('cancelled');
                 this.showCancel = true;
  
             },
-            onError: err => {
-                console.log('OnError', err);
+            onError: err => {                
+                this.showAlert('Sorry, paypal is currently unable to process your payment at this time. Please try again later');
                 this.showError = true;
             },
             onClick: (data, actions) => {
-                console.log('onClick', data, actions);
-                // resetStatus();
+                console.log('clicked');                
             },
         };
         
       }
 
     onCancelModal() {
-      console.log('cancelled modal');
-      if(this.orderId !== null) {
-        this.saveCompleteTransactionToServer(this.orderId);
-      } else {
-        this.modalCtrl.dismiss();
-      }
       
+      if(this.orderId !== null) {
+        if(this.showSuccess) {          
+          
+          setTimeout(() => {
+            this.modalCtrl.dismiss();
+            
+          },500);          
+        }
+        
+        setTimeout(() => {
+          this.modalCtrl.dismiss();
+        },500);
+      } else {
+        setTimeout(() => {
+          this.modalCtrl.dismiss();
+        },500);        
+      }      
     }
 
+    private showAlert(message: string) {
+    this.alertCtrl.create({      
+      message: message,
+      buttons: ['Okay']
+    }).then(alertEl => alertEl.present());
+  }
+
     public saveApprovedTransactionToServer(orderid: string) {
-      console.log(this.orderId);
+      
       return this.saveApproveSub = this.bridgeService.addPaypalApprovedOrder(
         orderid,
         this.itemId,
@@ -153,21 +170,38 @@ export class ChoosePayModalComponent implements OnInit, OnDestroy {
         this.imeiFirst,
         this.imeiLast
       ).subscribe(data => {
-        console.log(data);
-        
+          console.log('approved'); 
       });
     }
 
     saveCompleteTransactionToServer(orderId: string) {
-      console.log(orderId);
-      this.modalCtrl.dismiss();
+      return this.saveCompleteOrderSub = this.bridgeService.completePaypalOrder(
+        orderId
+        ).subscribe(data => {
+          if(data) {
+            this.showSuccess = true;
+            console.log(data); 
+            this.showAlert('Your payment was successful!');
+          } else {
+            this.showAlert('Sorry, something went wrong. Check the payments page to confirm your payment was successful or not');
+          }          
+      });
+      
     }
 
     ngOnDestroy() {
-    if(this.saveApproveSub) {
-      this.saveApproveSub.unsubscribe();
-    }    
-  }
+      if(this.saveApproveSub) {
+        this.saveApproveSub.unsubscribe();
+      } 
+
+      if(this.saveCompleteOrderSub) {
+        this.saveCompleteOrderSub.unsubscribe();
+      }  
+
+      if(this.showSuccess) {
+        this.router.navigate(['/payment']);
+      } 
+    }
 
   }
 

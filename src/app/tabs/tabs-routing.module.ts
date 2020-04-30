@@ -16,7 +16,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../tab2/tab2.module').then(m => m.Tab2PageModule),
-            canLoad: [AuthGuard, VerifiedGuard]
+            canActivate: [AuthGuard, VerifiedGuard]
           }
         ]
       },
@@ -37,7 +37,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../tab3/tab3.module').then(m => m.Tab3PageModule),
-            canLoad: [VerifiedGuard]
+            canActivate: [AuthGuard, VerifiedGuard]
           }
         ]
       },

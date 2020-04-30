@@ -68,10 +68,41 @@
 
               <ion-input formControlName="itemId" minlength="1"></ion-input>
             </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Enter a Payment ID to confirm a transaction</ion-label>
+              <ion-buttons slot="end">
+                <ion-button (click)="onSearchTransaction()" color="primary">
+                  <ion-icon name="send"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+
+              <ion-input formControlName="paymentId" minlength="1"></ion-input>
+            </ion-item>
           </ion-col>
         </ion-row>
       </form>
           
+      <ion-list *ngIf="isPaid">
+        
+          <ion-card class="card-payment">
+          
+          <ion-card-header>
+            <ion-card-title>Payment status: PAID</ion-card-title>
+          </ion-card-header>
+          <ion-card-header>
+            <ion-card-title>Payment Amount: {{loadedPayment.currency | uppercase }}{{' '}}{{ loadedPayment.itemPrice }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>Payment ID: {{ loadedPayment.hashId }}</ion-card-content>
+          <ion-card-content>Payment owner: {{ loadedPayment.sellerEmail }}</ion-card-content>
+          <ion-card-content>Payment method used: {{ loadedPayment.paymentOption | titlecase }}</ion-card-content>
+          <ion-card-content>Description: {{ loadedPayment.itemDescription }}</ion-card-content>
+          <ion-card-content>Date of Payment Initiation: {{ loadedPayment.paymentDate | date }}</ion-card-content>
+          
+          </ion-card>
+        
+      </ion-list>
+
       <ion-list>
         <ion-item-sliding *ngFor="let item of loadedItems">
           <app-item [item]="item"></app-item>             
@@ -85,4 +116,10 @@
       </ion-list>
     </ion-col>
   </ion-row>  
+  
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-title size="small" class="centralize"><small>Bridgepay Systems Ltd. Email: admin@myglowstar.com, Phone: +44 (0)3332244129</small></ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -4,8 +4,11 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8000/api',
-  };
+  // baseUrl: 'http://localhost:8000/api',
+  baseUrl: 'http://bridgepaysystems-env.eba-y4j4v2di.eu-west-2.elasticbeanstalk.com/api',
+  imageUrl: 'https://bridge-pay.s3.eu-west-2.amazonaws.com/',
+  
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

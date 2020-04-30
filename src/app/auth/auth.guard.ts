@@ -13,7 +13,23 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    return this.authService.isLoggedIn.pipe(
+      take(1),
+      switchMap(isAuthenticated => {
+        if(!isAuthenticated) {
+          return this.authService.autoLogin();
+        } else {
+          return of(isAuthenticated);
+        }
+      }),
+      tap(isAuthenticated => {
+        if (!isAuthenticated) {
+          return this.router.navigateByUrl('/tabs/home');
+        } else {
+          return of(isAuthenticated);
+        }
+      })
+    );
   }
   canActivateChild(
     next: ActivatedRouteSnapshot,
@@ -31,26 +47,13 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         if (!isAuthenticated) {
           this.router.navigateByUrl('/tabs/home');
         }
+        return of(isAuthenticated);
       })
     );
   }
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.isLoggedIn.pipe(
-      take(1),
-      switchMap(isAuthenticated => {
-        if(!isAuthenticated) {
-          return this.authService.autoLogin();
-        } else {
-          return of(isAuthenticated);
-        }
-      }),
-      tap(isAuthenticated => {
-        if (!isAuthenticated) {
-          this.router.navigateByUrl('/tabs/home');
-        }
-      })
-    );
+    return true;
   }
 }

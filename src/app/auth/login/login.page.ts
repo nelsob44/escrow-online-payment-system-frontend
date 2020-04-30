@@ -80,7 +80,7 @@ export class LoginPage implements OnInit {
         form.reset();
         if (!this.isLogin) {
           this.router.navigateByUrl('/tabs/home');
-          this.showAlert('Account created. You can now proceed to log in');
+          this.showAlert('Account created. Please check your inbox to verify your email. You can proceed to log in');
           this.isLogin = true;
         } else {
           this.router.navigateByUrl('/verify');

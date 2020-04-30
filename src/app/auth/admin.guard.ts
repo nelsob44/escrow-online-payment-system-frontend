@@ -13,16 +13,6 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
-  canActivateChild(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isAdmin.pipe(
       take(1),
       switchMap(isAdministrator => {
@@ -35,9 +25,21 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
       }),
       tap(isAdministrator => {
         if(!isAdministrator) {
-          this.router.navigateByUrl('/tabs/home');
+          return this.router.navigateByUrl('/tabs/home');
+        } else {
+          return of(isAdministrator);
         }
       })
     );
+  }
+  canActivateChild(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return true;
+  }
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
+    return true;
   }
 }
