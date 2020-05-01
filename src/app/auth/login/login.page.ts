@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class LoginPage implements OnInit {
   isLogin = true;
   isLoading = false;
-  
+  terms: boolean = false;
 
   constructor(
     private authService: AuthService, 
@@ -40,14 +40,14 @@ export class LoginPage implements OnInit {
     const password = form.value.password;
     const confirmpassword = form.value.confirmpassword;
     const country = form.value.country;
-    const terms = form.value.terms;
+    this.terms = form.value.terms;
     const secretquestion = form.value.secretquestion;
     const secretanswer = form.value.secretanswer;
     const phone = form.value.phone;
     
 
     if (!this.isLogin) {
-      if(!terms) {
+      if(!this.terms) {
         this.showAlert('You need to agree to terms and conditions to proceed');
         return;
       }

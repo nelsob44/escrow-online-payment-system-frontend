@@ -5,11 +5,13 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot --prod",
+    "aws-deploy": "aws s3 sync dist/ s3://bridgepaysystems"
   },
   "private": true,
   "dependencies": {
@@ -28,8 +30,10 @@
     "@ionic/angular": "^4.11.10",
     "@ionic/pwa-elements": "^1.5.1",
     "core-js": "^2.6.11",
+    "express": "^4.17.1",
     "ng-snotify": "^4.3.1",
     "ngx-paypal": "^6.1.0",
+    "path": "^0.12.7",
     "rxjs": "^6.5.4",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -61,5 +65,9 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "engines": {
+    "node": "~12.4.0",
+    "npm": "~6.9.0"
+  }
 }

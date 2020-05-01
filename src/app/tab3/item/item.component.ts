@@ -25,7 +25,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   private emailSub: Subscription;
   private statusSub: Subscription;
   private buyerEmail: string;
-  private canDelete: boolean = false;
+  canDelete: boolean = false;
   private showSuccess: boolean = false;
   private useStripe: boolean = true;
   isLoading = false;

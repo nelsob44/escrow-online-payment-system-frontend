@@ -13,6 +13,7 @@ import { SnotifyService } from 'ng-snotify';
 })
 export class ResponseResetPage implements OnInit {
   resetToken = null;
+  isLoading = false;
 
   constructor(
     private router: Router,

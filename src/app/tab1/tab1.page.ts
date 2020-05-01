@@ -19,7 +19,7 @@ export class Tab1Page implements OnInit, OnDestroy{
   loadedItems: Item[];
   isLoading = false;
   private searchItemSub: Subscription;
-  private userName: string;
+  userName: string;
   private userNameSub: Subscription;
   private searchPaymentSub: Subscription;
   isLoggedIn = false;

@@ -21,7 +21,7 @@ export class PaymentPage implements OnInit, OnDestroy {
   noMoreNext = false;
   noMorePrev = true;
   page = 1;
-  private userName: string;
+  userName: string;
   private userNameSub: Subscription;
   isLoggedIn = false;
   hasPayments = false;

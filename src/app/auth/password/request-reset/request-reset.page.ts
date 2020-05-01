@@ -12,6 +12,7 @@ import { SnotifyService } from 'ng-snotify';
   styleUrls: ['./request-reset.page.scss'],
 })
 export class RequestResetPage implements OnInit {
+  isLoading = false;
 
   constructor(
     private router: Router,

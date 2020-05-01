@@ -21,7 +21,7 @@ export class Tab3Page implements OnInit, OnDestroy  {
   page = 1;
   private itemsSub: Subscription;
   private searchItemSub: Subscription;
-  private userName: string;
+  userName: string;
   private userNameSub: Subscription;
   isLoggedIn = false;
   

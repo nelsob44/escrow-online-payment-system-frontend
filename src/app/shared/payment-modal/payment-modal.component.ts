@@ -19,6 +19,19 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('paymentmodal', { static: false }) paymentModalElementRef: ElementRef;
   @Input() closeButtonText = 'Cancel';
   @Input() title = 'Continue Payment';
+  @Input() currency: string;
+  @Input() commission: number;
+  @Input() itemPrice: number;
+  @Input() amount: number;
+  @Input() itemId: string;
+  @Input() clientSecret: string;
+  @Input() buyer: string;
+  @Input() intent_id: string;
+  @Input() realAmount: number;
+  @Input() description: string;
+  @Input() seller_id: number;
+  @Input() buyerEmail: string;
+  @Input() seller_email: string;
 
   @ViewChild('cardInfo', {static: false}) cardInfo: ElementRef;
   public payPalConfig ? : IPayPalConfig;

@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent {
   private authSub: Subscription;
-  private previousAuthState = false;
+  previousAuthState = false;
 
   constructor(
     private platform: Platform,
