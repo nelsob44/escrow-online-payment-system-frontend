@@ -6,7 +6,7 @@ import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { Router } from '@angular/router';
 import { BridgeService } from 'src/app/bridge.service';
 import { Subscription } from 'rxjs';
-import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+// import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -34,7 +34,7 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() seller_email: string;
 
   @ViewChild('cardInfo', {static: false}) cardInfo: ElementRef;
-  public payPalConfig ? : IPayPalConfig;
+  // public payPalConfig ? : IPayPalConfig;
   stripe;
   loading = false;
   confirmation;

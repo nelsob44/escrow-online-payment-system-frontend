@@ -18,7 +18,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class Item1Component implements OnInit, OnDestroy {
   @Input() item: Item;
-  @ViewChild('payPalConfig', {static: false}) paypalElement: ElementRef;
+  // @ViewChild('payPalConfig', {static: false}) paypalElement: ElementRef;
     
   paypal;
   private paymentIntentSub: Subscription;
@@ -63,13 +63,13 @@ export class Item1Component implements OnInit, OnDestroy {
           this.useStripe = true;
           this.onClickPay(id);
         }      
-      }, {
-        text: 'Pay with Paypal',        
-        handler: () => {
-          this.useStripe = false;
-          this.onClickPaypal(id);
-          console.log('Paypal clicked');
-        }      
+      // }, {
+      //   text: 'Pay with Paypal',        
+      //   handler: () => {
+      //     this.useStripe = false;
+      //     this.onClickPaypal(id);
+      //     console.log('Paypal clicked');
+      //   }      
       }]
     });
     await actionSheet.present();
@@ -130,35 +130,35 @@ export class Item1Component implements OnInit, OnDestroy {
     
   }
 
-  private onClickPaypal(id: string) {
-    this.loadingCtrl.create({keyboardClose: true, message: 'Setting up payment....'})
-    .then(loadingEl => {
-      loadingEl.present();
+  // private onClickPaypal(id: string) {
+  //   this.loadingCtrl.create({keyboardClose: true, message: 'Setting up payment....'})
+  //   .then(loadingEl => {
+  //     loadingEl.present();
 
-      this.checkEmailSub = this.bridgeService.checkEmailVerification().subscribe(data => {
+  //     this.checkEmailSub = this.bridgeService.checkEmailVerification().subscribe(data => {
         
-        if(data) {
-          this.presentModal(null, this.item.id, this.item.itemDescription,
-              this.item.itemPrice,
-              this.item.currency,
-              this.item.buyerName,
-              null,
-              this.buyerEmail
-          );
-        } 
-      loadingEl.dismiss();   
-    }, errorResponse => {
-        loadingEl.dismiss();
+  //       if(data) {
+  //         this.presentModal(null, this.item.id, this.item.itemDescription,
+  //             this.item.itemPrice,
+  //             this.item.currency,
+  //             this.item.buyerName,
+  //             null,
+  //             this.buyerEmail
+  //         );
+  //       } 
+  //     loadingEl.dismiss();   
+  //   }, errorResponse => {
+  //       loadingEl.dismiss();
         
-        const errorCode = errorResponse.error.errors;
+  //       const errorCode = errorResponse.error.errors;
                 
-        this.showAlert(errorCode);
+  //       this.showAlert(errorCode);
        
-        this.isLoading = false;
-      });
-    });
+  //       this.isLoading = false;
+  //     });
+  //   });
     
-  }
+  // }
 
   private showAlert(message: string) {
     this.alertCtrl.create({      
