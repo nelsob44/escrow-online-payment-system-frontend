@@ -45,7 +45,7 @@ export class VerifyPage implements OnInit, OnDestroy {
     this.isLoading = true;
     if(this.profile != null) {
       this.verifySub = this.bridgeService.fetchverifysecret(this.profile.id).subscribe(secrets => {
-        
+        console.log(secrets);
         if(secrets) {
           this.verifyData = secrets;
           this.numberCharacters = this.verifyData.numberOfCharacters;
