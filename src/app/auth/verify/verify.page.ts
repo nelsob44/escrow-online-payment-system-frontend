@@ -45,7 +45,7 @@ export class VerifyPage implements OnInit, OnDestroy {
     this.isLoading = true;
     if(this.profile != null) {
       this.verifySub = this.bridgeService.fetchverifysecret(this.profile.id).subscribe(secrets => {
-        console.log(secrets);
+        
         if(secrets) {
           this.verifyData = secrets;
           this.numberCharacters = this.verifyData.numberOfCharacters;
@@ -66,7 +66,7 @@ export class VerifyPage implements OnInit, OnDestroy {
           let newNumArray2 = new Uint32Array(newNumArray);
           newNumArray2 = newNumArray2.sort();
           this.loadedSecretCharacters = newNumArray2;
-          console.log(this.loadedSecretCharacters);
+          
         } else {
           
           this.router.navigate(['/login']);
@@ -96,8 +96,7 @@ export class VerifyPage implements OnInit, OnDestroy {
       return;
     }
     this.answerSub = this.bridgeService.verifySecretAnswer(this.secretCharactersChosen).subscribe(secrets => {
-      console.log('returned secrets');
-      console.log(secrets);
+      
       if(secrets && isArray(secrets)) { 
         this.numberCharacters = 0;
         this.loadedSecretCharacters = [];
