@@ -208,7 +208,9 @@ export class Item1Component implements OnInit, OnDestroy {
         'imeiLast': this.item.imeiLast
       }
     }).then(modalEl => {
+      console.log('got out of modal 1', modalEl);
       modalEl.onDidDismiss().then(modalData => {
+        console.log('got out of modal 2');
         if(!modalData.data) {
           return;
         }

@@ -55,7 +55,7 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   
   ngOnInit() {
-        
+        console.log('pay-modal ng oninit', this.currency);
   }
 
   
