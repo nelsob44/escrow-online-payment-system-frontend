@@ -79,7 +79,7 @@ export class Item1Component implements OnInit, OnDestroy {
     this.loadingCtrl.create({keyboardClose: true, message: 'Setting up payment....'})
     .then(loadingEl => {
       loadingEl.present();
-
+      console.log('got here 1', id);
       return this.paymentIntentSub = this.bridgeService.addPaymentIntentStripe(
       this.item.id,
       this.item.itemName,
@@ -94,7 +94,8 @@ export class Item1Component implements OnInit, OnDestroy {
       this.item.imeiLast
     ).pipe(
       
-      map(intent => {        
+      map(intent => {    
+        console.log('got modal 2', intent);    
         this.presentModal(
         intent.intent.id, 
         this.item.id, 
@@ -182,7 +183,7 @@ export class Item1Component implements OnInit, OnDestroy {
   imeiFirst?: string,
   imeiLast?: string
   ) {
-    
+    console.log('got into modal 3', id);
     this.modalCtrl.create({
       component: this.useStripe ? PaymentModalComponent : ChoosePayModalComponent,
       componentProps: {

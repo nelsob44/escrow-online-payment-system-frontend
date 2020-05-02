@@ -60,6 +60,7 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   
   ngAfterViewInit() {
+    console.log('pay-modal ngafter viewinit');
     const stripePubKey = environment.publishableKeyStripe;
     this.stripeService.setPublishableKey(stripePubKey).then(
     stripe=> {
