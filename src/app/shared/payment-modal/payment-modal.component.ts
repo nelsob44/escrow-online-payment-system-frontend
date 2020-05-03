@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {NgForm} from "@angular/forms";
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
@@ -72,8 +72,8 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-   onCancel() {
-    this.modalCtrl.dismiss();
+   async onCancel() {
+    await this.modalCtrl.dismiss();
   }
 
   onChange({ error }) {

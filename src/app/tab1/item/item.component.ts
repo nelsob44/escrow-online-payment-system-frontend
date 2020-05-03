@@ -19,7 +19,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class Item1Component implements OnInit, OnDestroy {
   @Input() item: Item;
   // @ViewChild('payPalConfig', {static: false}) paypalElement: ElementRef;
-    
+  dataReturned: any;
   paypal;
   private paymentIntentSub: Subscription;
   private emailSub: Subscription;
@@ -75,7 +75,7 @@ export class Item1Component implements OnInit, OnDestroy {
     await actionSheet.present();
   }
 
-  private onClickPay(id: string) {    
+  onClickPay(id: string) {    
     this.loadingCtrl.create({keyboardClose: true, message: 'Setting up payment....'})
     .then(loadingEl => {
       loadingEl.present();
@@ -168,7 +168,7 @@ export class Item1Component implements OnInit, OnDestroy {
     }).then(alertEl => alertEl.present());
   }
 
-  private presentModal(id: string, 
+  async presentModal(id: string, 
   itemId: string,
   description: string, 
   amount: any, 
@@ -184,7 +184,7 @@ export class Item1Component implements OnInit, OnDestroy {
   imeiLast?: string
   ) {
     console.log('got into modal 3', id);
-    this.modalCtrl.create({
+    const modal = await this.modalCtrl.create({
       component: this.useStripe ? PaymentModalComponent : ChoosePayModalComponent,
       componentProps: {
         'itemId': this.item.id,
@@ -207,17 +207,18 @@ export class Item1Component implements OnInit, OnDestroy {
         'imeiFirst': this.item.imeiFirst,
         'imeiLast': this.item.imeiLast
       }
-    }).then(modalEl => {
-      console.log('got out of modal 1', modalEl);
-      modalEl.onDidDismiss().then(modalData => {
-        console.log('got out of modal 2');
+    });
+
+      console.log('got out of modal 1');
+      modal.onDidDismiss().then(modalData => {
+        console.log('got out of modal 2', modalData);
         if(!modalData.data) {
           return;
         }
-        
+        this.dataReturned = modalData.data;
       });
-      modalEl.present();
-    });
+      return await modal.present();
+    
   }
 
   onDelete(id: string) {

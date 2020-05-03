@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Renderer2, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { BridgeService } from 'src/app/bridge.service';
 // import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
