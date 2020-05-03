@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, Inject, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Item } from 'src/app/models/item.model';
 import { Subscription } from 'rxjs';
 import { BridgeService } from 'src/app/bridge.service';
@@ -8,6 +8,8 @@ import { PaymentModalComponent } from '../../shared/payment-modal/payment-modal.
 import {ChoosePayModalComponent} from '../../shared/choose-pay-modal/choose-pay-modal.component';
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 import { AuthService } from '../../auth/auth.service';
 
  
@@ -35,7 +37,8 @@ export class Item1Component implements OnInit, OnDestroy {
   private modalCtrl: ModalController, private bridgeService: BridgeService,
   private router: Router, private authService: AuthService,
   public actionSheetController: ActionSheetController,
-  private alertCtrl: AlertController) { }
+  private alertCtrl: AlertController,
+  public dialog: MatDialog) { }
 
   ngOnInit() {
     this.emailSub = this.authService.userEmail.subscribe(email => {
@@ -184,9 +187,9 @@ export class Item1Component implements OnInit, OnDestroy {
   imeiLast?: string
   ) {
     console.log('got into modal 3', id);
-    const modal = await this.modalCtrl.create({
-      component: this.useStripe ? PaymentModalComponent : ChoosePayModalComponent,
-      componentProps: {
+    const dialogRef = await this.dialog.open(this.useStripe ? PaymentModalComponent : ChoosePayModalComponent, {
+      
+      data: {
         'itemId': this.item.id,
         'itemName': this.item.itemName,
         'intent_id': this.useStripe ? id : null,
@@ -210,15 +213,9 @@ export class Item1Component implements OnInit, OnDestroy {
     });
 
       console.log('got out of modal 1');
-      modal.onDidDismiss().then(modalData => {
-        console.log('got out of modal 2', modalData);
-        if(!modalData.data) {
-          return;
-        }
-        this.dataReturned = modalData.data;
-      });
-      return await modal.present();
-    
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+      });    
   }
 
   onDelete(id: string) {

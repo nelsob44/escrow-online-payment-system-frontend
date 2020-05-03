@@ -12,7 +12,8 @@ import { PaymentModalComponent } from './shared/payment-modal/payment-modal.comp
 import {ChoosePayModalComponent} from './shared/choose-pay-modal/choose-pay-modal.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
 // import { NgxPayPalModule } from 'ngx-paypal';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment.prod';
@@ -22,7 +23,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [AppComponent, PaymentModalComponent, ChoosePayModalComponent],
   entryComponents: [PaymentModalComponent, ChoosePayModalComponent],
-  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, 
+  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, MaterialModule, BrowserAnimationsModule,
   SnotifyModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     StatusBar,
@@ -30,8 +31,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
-    SnotifyService,
-    PaymentModalComponent
+    SnotifyService
   ],
   bootstrap: [AppComponent]
 })

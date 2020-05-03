@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ElementRef, Input, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {NgForm} from "@angular/forms";
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { Router } from '@angular/router';
 import { BridgeService } from '../../bridge.service';
+import { DialogData } from '../../material/dialogdata';
 import { Subscription } from 'rxjs';
 // import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { environment } from '../../../environments/environment';
@@ -46,16 +48,28 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
   private savePaymentSub: Subscription;
   form: FormGroup;
   
-  constructor(private modalCtrl: ModalController, private renderer: Renderer2,
-  private cd: ChangeDetectorRef, private router: Router,
+  // constructor(private modalCtrl: ModalController, private renderer: Renderer2,
+  // private cd: ChangeDetectorRef, private router: Router,
+  //   private stripeService:AngularStripeService,
+  //   private bridgeService: BridgeService,
+  //   private alertCtrl: AlertController) { 
+    
+  // }
+  constructor(
+    public dialogRef: MatDialogRef<PaymentModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private modalCtrl: ModalController, private renderer: Renderer2,
+    private cd: ChangeDetectorRef, private router: Router,
     private stripeService:AngularStripeService,
     private bridgeService: BridgeService,
-    private alertCtrl: AlertController) { 
-    
+    private alertCtrl: AlertController) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
   
   ngOnInit() {
-        console.log('pay-modal ng oninit', this.currency);
+        console.log('pay-modal ng oninit', this.data);
   }
 
   
