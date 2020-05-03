@@ -24,8 +24,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   declarations: [AppComponent, PaymentModalComponent, ChoosePayModalComponent],
   entryComponents: [PaymentModalComponent, ChoosePayModalComponent],
   imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, 
-  SnotifyModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-  ModalController, AlertController, LoadingController],
+  SnotifyModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     StatusBar,
     SplashScreen,
