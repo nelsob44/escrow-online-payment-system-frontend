@@ -14,12 +14,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 // import { NgxPayPalModule } from 'ngx-paypal';
 import { AppComponent } from './app.component';
+import { environment } from 'src/environments/environment.prod';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 
 @NgModule({
   declarations: [AppComponent, PaymentModalComponent, ChoosePayModalComponent],
   entryComponents: [PaymentModalComponent, ChoosePayModalComponent],
-  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), SnotifyModule, AppRoutingModule, 
-  SnotifyModule, ReactiveFormsModule, FormsModule],
+  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, 
+  SnotifyModule, ReactiveFormsModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     StatusBar,
     SplashScreen,

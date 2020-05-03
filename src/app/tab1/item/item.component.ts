@@ -185,7 +185,7 @@ export class Item1Component implements OnInit, OnDestroy {
   ) {
     console.log('got into modal 3', id);
     const modal = await this.modalCtrl.create({
-      component: PaymentModalComponent,
+      component: this.useStripe ? PaymentModalComponent : ChoosePayModalComponent,
       componentProps: {
         'itemId': this.item.id,
         'itemName': this.item.itemName,
