@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import { PaymentModalComponent } from 'src/app/shared/payment-modal/payment-modal.component';
 import {ChoosePayModalComponent} from 'src/app/shared/choose-pay-modal/choose-pay-modal.component';
 import { AppRoutingModule } from './app-routing.module';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 // import { NgxPayPalModule } from 'ngx-paypal';
 import { AppComponent } from './app.component';
 
@@ -22,6 +23,7 @@ import { AppComponent } from './app.component';
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     SnotifyService
