@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
 })
 
 export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('paymentmodal', { static: false }) paymentModalElementRef: ElementRef;
+  @ViewChild('paymentmodal', { static: false}) paymentModalElementRef: ElementRef;
   @Input() closeButtonText = 'Cancel';
   @Input() title = 'Continue Payment';
   @Input() currency: string;
@@ -35,7 +35,7 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() buyerEmail: string;
   @Input() seller_email: string;
 
-  @ViewChild('cardInfo', {static: false}) cardInfo: ElementRef;
+  @ViewChild('cardInfo', { static: false}) cardInfo: ElementRef;
   // public payPalConfig ? : IPayPalConfig;
   stripe;
   loading = false;

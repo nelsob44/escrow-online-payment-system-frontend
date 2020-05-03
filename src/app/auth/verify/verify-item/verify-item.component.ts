@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
   styleUrls: ['./verify-item.component.scss'],
 })
 export class VerifyItemComponent implements OnInit {
-  @ViewChild('secretAnswer', { static: false }) secretAnswerPickerRef: ElementRef<HTMLInputElement>;
+  @ViewChild('secretAnswer', { static: false}) secretAnswerPickerRef: ElementRef<HTMLInputElement>;
   @Input() character: number;
   @Output() selectedCharacter = new EventEmitter<any[]>();
   public selectedArray = [];
