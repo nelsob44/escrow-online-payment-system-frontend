@@ -3,11 +3,16 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { AdminGuard } from './auth/admin.guard';
 import {VerifiedGuard} from './auth/verified.guard';
+import { PaymentModalComponent } from './shared/payment-modal/payment-modal.component';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'payment-modal',
+    component: PaymentModalComponent
   },
   { 
     path: 'login',

@@ -12,8 +12,7 @@ import { PaymentModalComponent } from './shared/payment-modal/payment-modal.comp
 import {ChoosePayModalComponent} from './shared/choose-pay-modal/choose-pay-modal.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { ModalController, AlertController, LoadingController } from '@ionic/angular';
-import { ActionSheetController } from '@ionic/angular';
+
 // import { NgxPayPalModule } from 'ngx-paypal';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment.prod';
@@ -32,10 +31,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     SnotifyService,
-    ModalController,
-    AlertController,
-    LoadingController,
-    ActionSheetController
+    PaymentModalComponent
   ],
   bootstrap: [AppComponent]
 })
