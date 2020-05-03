@@ -8,7 +8,7 @@ import { PaymentModalComponent } from '../../shared/payment-modal/payment-modal.
 import {ChoosePayModalComponent} from '../../shared/choose-pay-modal/choose-pay-modal.component';
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
  
 @Component({
@@ -185,7 +185,7 @@ export class Item1Component implements OnInit, OnDestroy {
   ) {
     console.log('got into modal 3', id);
     const modal = await this.modalCtrl.create({
-      component: this.useStripe ? PaymentModalComponent : ChoosePayModalComponent,
+      component: PaymentModalComponent,
       componentProps: {
         'itemId': this.item.id,
         'itemName': this.item.itemName,

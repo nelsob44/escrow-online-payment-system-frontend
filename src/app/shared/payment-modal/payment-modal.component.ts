@@ -4,10 +4,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {NgForm} from "@angular/forms";
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { Router } from '@angular/router';
-import { BridgeService } from 'src/app/bridge.service';
+import { BridgeService } from '../../bridge.service';
 import { Subscription } from 'rxjs';
 // import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-payment-modal',
@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 
 export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('paymentmodal', { static: false }) paymentModalElementRef: ElementRef;
+  @ViewChild('paymentmodal', { static: true }) paymentModalElementRef: ElementRef;
   @Input() closeButtonText = 'Cancel';
   @Input() title = 'Continue Payment';
   @Input() currency: string;
@@ -33,7 +33,7 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() buyerEmail: string;
   @Input() seller_email: string;
 
-  @ViewChild('cardInfo', {static: false}) cardInfo: ElementRef;
+  @ViewChild('cardInfo', {static: true}) cardInfo: ElementRef;
   // public payPalConfig ? : IPayPalConfig;
   stripe;
   loading = false;
