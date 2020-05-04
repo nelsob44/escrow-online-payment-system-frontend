@@ -4,5 +4,5 @@ export const environment = {
   
   imageUrl: 'https://bridge-pay.s3.eu-west-2.amazonaws.com/',
   publishableKeyStripe: 'pk_test_qkCQMaN7xcuxD4z2rZvZIRDR',
-  paypalClientId: ''
+  paypalClientId: 'ARDv4XhSU17jPAYNwmBf8VaYnoOxWj49eMT1bGFI6zdnFuAYLiZ8OOMVDJTy2zatdzZZv9MtHyB_ifT1'
 };

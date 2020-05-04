@@ -13,7 +13,7 @@ import {ChoosePayModalComponent} from './shared/choose-pay-modal/choose-pay-moda
 import { AppRoutingModule } from './app-routing.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxPayPalModule } from 'ngx-paypal';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment.prod';
 
@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment.prod';
 @NgModule({
   declarations: [AppComponent, PaymentModalComponent, ChoosePayModalComponent],
   entryComponents: [PaymentModalComponent, ChoosePayModalComponent],
-  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule,
+  imports: [BrowserModule, NgxPayPalModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule,
   ReactiveFormsModule, FormsModule],
   providers: [
     StatusBar,
