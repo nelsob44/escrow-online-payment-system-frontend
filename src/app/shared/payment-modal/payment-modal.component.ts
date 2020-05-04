@@ -36,7 +36,7 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() seller_email: string;
 
   @ViewChild('cardInfo', { static: false}) cardInfo: ElementRef;
-  // public payPalConfig ? : IPayPalConfig;
+  
   stripe;
   loading = false;
   confirmation;
@@ -59,12 +59,12 @@ export class PaymentModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   
   ngOnInit() {
-        console.log('pay-modal ng oninit');
+    
   }
 
   
   ngAfterViewInit() {
-    console.log('pay-modal ngafter viewinit');
+    
     const stripePubKey = environment.publishableKeyStripe;
     this.stripeService.setPublishableKey(stripePubKey).then(
     stripe=> {

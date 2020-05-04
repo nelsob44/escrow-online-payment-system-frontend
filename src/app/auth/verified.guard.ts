@@ -19,7 +19,7 @@ export class VerifiedGuard implements CanActivate, CanLoad {
      switchMap(isAuthenticated => {
         if(!isAuthenticated) {
           return this.router.navigateByUrl('/login');
-          //return this.authService.autoLogin();
+         
         } else {
           return of(isAuthenticated);
         }

@@ -68,7 +68,7 @@ export class Item1Component implements OnInit, OnDestroy {
         handler: () => {
           this.useStripe = false;
           this.onClickPaypal(id);
-          console.log('Paypal clicked');
+          
         }      
       }]
     });
@@ -112,9 +112,8 @@ export class Item1Component implements OnInit, OnDestroy {
         this.showAlert(errorCode);
       })
     ).subscribe(() => {
-      console.log('success 1');
-      loadingEl.dismiss();
-        
+     
+      loadingEl.dismiss();        
          
     }, errorResponse => {
         loadingEl.dismiss();

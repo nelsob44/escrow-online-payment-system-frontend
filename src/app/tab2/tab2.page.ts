@@ -132,7 +132,7 @@ export class Tab2Page implements OnInit, OnDestroy {
           loadingEl.dismiss();
         }, errorResponse => {
           loadingEl.dismiss();
-          console.log(errorResponse);
+          
           const errorCode = errorResponse.error.errors;
           if(errorCode === 'Property [email_verified_at] does not exist on the Eloquent builder instance.') {
             let displayCode = 'Sorry, you need to verify your email first before you can add an item';
@@ -165,7 +165,7 @@ export class Tab2Page implements OnInit, OnDestroy {
               this.router.navigate(['/tabs/my-items']);
             loadingEl.dismiss();
         }, errorResponse => {
-          console.log(errorResponse);
+          
           loadingEl.dismiss();
           
           const errorCode = errorResponse.error.errors;
@@ -197,8 +197,6 @@ export class Tab2Page implements OnInit, OnDestroy {
     } else {
       imageFile = imageData;
       this.filesToUpload.push(imageData);
-      // console.log(imageFile);
-      // console.log(this.filesToUpload);
       
     }
     this.form.patchValue({ theImage: imageFile });

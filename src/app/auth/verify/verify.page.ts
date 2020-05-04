@@ -86,7 +86,7 @@ export class VerifyPage implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
-    console.log(this.secretCharactersChosen);
+   
     if(this.secretCharactersChosen.length != 3) {
       this.showAlert('Please enter all values');
       this.secretCharactersChosen = [];

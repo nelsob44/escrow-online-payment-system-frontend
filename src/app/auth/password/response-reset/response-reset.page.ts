@@ -3,8 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService, ResetData } from '../../auth.service';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { Observable } from 'rxjs';
-import { SnotifyService } from 'ng-snotify';
+
 
 @Component({
   selector: 'app-response-reset',
@@ -19,8 +18,7 @@ export class ResponseResetPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController,
-    private notify: SnotifyService,
+    private alertCtrl: AlertController,    
     private route: ActivatedRoute
   ) { 
     route.queryParams.subscribe(params => {
@@ -51,34 +49,11 @@ export class ResponseResetPage implements OnInit {
       data => {
         form.reset();
         
-        this.router.navigateByUrl('/login');
-        this.notify.success(data.data, 'Success!', {
-          timeout: 3000,
-          showProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          buttons: [            
-            {text: 'Okay!', action: (toast) => {
-              this.notify.remove(toast.id); 
-              }, bold: false
-            },
-          ]
-        });
+        this.showAlert(data);
       },
       error => {
         
-        this.notify.error(error.error.error, 'An error occured!', {
-          timeout: 5000,
-          showProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          buttons: [            
-            {text: 'Close', action: (toast) => {
-              this.notify.remove(toast.id); 
-              }, bold: false
-            },
-          ]
-        });
+        this.showAlert('Sorry there was an error. please try again later or contact Admin');
       }
     );
   }

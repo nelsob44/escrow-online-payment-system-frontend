@@ -180,7 +180,7 @@ export class ChoosePayModalComponent implements OnInit {
         ).subscribe(data => {
           if(data) {
             this.showSuccess = true;
-            console.log(data); 
+            
             this.showAlert('Your payment was successful!');
           } else {
             this.showAlert('Sorry, something went wrong. Check the payments page to confirm your payment was successful or not');

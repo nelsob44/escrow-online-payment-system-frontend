@@ -3,8 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, ResetData } from '../../auth.service';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { Observable } from 'rxjs';
-import { SnotifyService } from 'ng-snotify';
+
 
 @Component({
   selector: 'app-request-reset',
@@ -18,8 +17,7 @@ export class RequestResetPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController,
-    private notify: SnotifyService
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -30,24 +28,14 @@ export class RequestResetPage implements OnInit {
       return;
     }
     const email = form.value.email;
-    this.authService.sendPasswordResetLink(email).subscribe(
-      data => this.notify.success(data.message, 'Success!', {
-          timeout: 3000,
-          showProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          buttons: [            
-            {text: 'Okay!', action: (toast) => {
-              this.notify.remove(toast.id); 
-              }, bold: false
-            },
-          ]
-        }),
-      error => this.notify.error(error.error.error)
-    );
+    this.authService.sendPasswordResetLink(email).subscribe(data => {
+      this.showAlert(data.message);
+    }, error => {
+      this.showAlert('Sorry there was an error. please try again later or contact Admin');
+    });
   }
 
-  private showAlert(message: string) {
+  private showAlert(message: any) {
     this.alertCtrl.create({      
       message: message,
       buttons: ['Okay']

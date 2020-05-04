@@ -118,7 +118,7 @@ export class BridgeService {
     return this.authService.token.pipe(
       take(1),
       switchMap(token => {
-        console.log(uploadData);
+        
         return this.http.post<any>(url, JSON.stringify(uploadData), {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',

@@ -18,12 +18,7 @@ export class ImagePickerComponent implements OnInit {
   constructor(private platform: Platform) { }
 
   ngOnInit() {
-    // console.log('Mobile', this.platform.is('mobile'));
-    // console.log('desktop', this.platform.is('desktop'));
-    // console.log('hybrid', this.platform.is('hybrid'));
-    // console.log('capacitor', this.platform.is('capacitor'));
-    // console.log('android', this.platform.is('android'));
-
+    
     if((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
       this.usePicker = true;
     }
@@ -51,7 +46,7 @@ export class ImagePickerComponent implements OnInit {
       this.showPreview = true;    
     })
     .catch(error => {
-      console.log(error);
+      
       if(this.usePicker) {
         this.filePickerRef.nativeElement.click();
       }      
@@ -72,7 +67,7 @@ export class ImagePickerComponent implements OnInit {
       fr.onload = () => {
         const dataUrl = fr.result.toString();
         this.selectedImage = dataUrl;
-        // console.log(this.selectedImage);
+        
         this.imagePick.emit(pkFile);      
       }
       fr.readAsDataURL(pkFile);

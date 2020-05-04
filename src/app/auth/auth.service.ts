@@ -355,7 +355,7 @@ export class AuthService implements OnDestroy {
     })
     .pipe(map(resData => {
       
-      return resData;
+      return resData.data;
     }));
   }
 
