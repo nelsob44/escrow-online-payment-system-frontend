@@ -10,10 +10,6 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
-  {
-    path: 'payment-modal',
-    component: PaymentModalComponent
-  },
   { 
     path: 'login',
     loadChildren: './auth/login/login.module#LoginPageModule'

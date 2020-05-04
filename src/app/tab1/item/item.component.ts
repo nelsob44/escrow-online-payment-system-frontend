@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Item } from 'src/app/models/item.model';
 import { Subscription } from 'rxjs';
 import { BridgeService } from 'src/app/bridge.service';
@@ -8,9 +8,7 @@ import { PaymentModalComponent } from '../../shared/payment-modal/payment-modal.
 import {ChoosePayModalComponent} from '../../shared/choose-pay-modal/choose-pay-modal.component';
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
  
 @Component({
@@ -21,14 +19,14 @@ import { AuthService } from '../../auth/auth.service';
 export class Item1Component implements OnInit, OnDestroy {
   @Input() item: Item;
   // @ViewChild('payPalConfig', {static: false}) paypalElement: ElementRef;
-  dataReturned: any;
+    
   paypal;
   private paymentIntentSub: Subscription;
   private emailSub: Subscription;
   private statusSub: Subscription;
   private buyerEmail: string;
   canDelete: boolean = false;
-  showSuccess: boolean = false;
+  private showSuccess: boolean = false;
   private useStripe: boolean = true;
   isLoading = false;
   private checkEmailSub: Subscription;
@@ -37,8 +35,7 @@ export class Item1Component implements OnInit, OnDestroy {
   private modalCtrl: ModalController, private bridgeService: BridgeService,
   private router: Router, private authService: AuthService,
   public actionSheetController: ActionSheetController,
-  private alertCtrl: AlertController,
-  public dialog: MatDialog) { }
+  private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.emailSub = this.authService.userEmail.subscribe(email => {
@@ -78,11 +75,11 @@ export class Item1Component implements OnInit, OnDestroy {
     await actionSheet.present();
   }
 
-  onClickPay(id: string) {    
+  private onClickPay(id: string) {    
     this.loadingCtrl.create({keyboardClose: true, message: 'Setting up payment....'})
     .then(loadingEl => {
       loadingEl.present();
-      console.log('got here 1', id);
+
       return this.paymentIntentSub = this.bridgeService.addPaymentIntentStripe(
       this.item.id,
       this.item.itemName,
@@ -97,8 +94,7 @@ export class Item1Component implements OnInit, OnDestroy {
       this.item.imeiLast
     ).pipe(
       
-      map(intent => {    
-        console.log('got modal 2', intent);    
+      map(intent => {        
         this.presentModal(
         intent.intent.id, 
         this.item.id, 
@@ -171,7 +167,7 @@ export class Item1Component implements OnInit, OnDestroy {
     }).then(alertEl => alertEl.present());
   }
 
-  async presentModal(id: string, 
+  private presentModal(id: string, 
   itemId: string,
   description: string, 
   amount: any, 
@@ -186,10 +182,10 @@ export class Item1Component implements OnInit, OnDestroy {
   imeiFirst?: string,
   imeiLast?: string
   ) {
-    console.log('got into modal 3', id);
-    const dialogRef = await this.dialog.open(this.useStripe ? PaymentModalComponent : ChoosePayModalComponent, {
-      
-      data: {
+    
+    this.modalCtrl.create({
+      component: this.useStripe ? PaymentModalComponent : ChoosePayModalComponent,
+      componentProps: {
         'itemId': this.item.id,
         'itemName': this.item.itemName,
         'intent_id': this.useStripe ? id : null,
@@ -210,12 +206,15 @@ export class Item1Component implements OnInit, OnDestroy {
         'imeiFirst': this.item.imeiFirst,
         'imeiLast': this.item.imeiLast
       }
+    }).then(modalEl => {
+      modalEl.onDidDismiss().then(modalData => {
+        if(!modalData.data) {
+          return;
+        }
+        
+      });
+      modalEl.present();
     });
-
-      console.log('got out of modal 1');
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
-      });    
   }
 
   onDelete(id: string) {
