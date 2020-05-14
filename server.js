@@ -9,9 +9,15 @@ app.use(express.static(__dirname + '/dist'));
 app.get('/*', function(req, res) {
   if(req.headers['x-forwarded-proto'] !=='https'){
     res.redirect(301, 'https://www.bridgepaysystems.com' + req.url);
+console.log(req.headers['x-forwarded-proto']);
+console.log('https://www.bridgepaysystems.com' + req.url);
+    res.sendFile(path.join(__dirname + '/dist/index.html'));
+  } else {
+    console.log('https://www.bridgepaysystems.com' + req.url);
+    res.sendFile(path.join(__dirname + '/dist/index.html'));
   }
   
-  res.sendFile(path.join(__dirname + '/dist/index.html'));
+  
 });
 
 // default Heroku PORT
