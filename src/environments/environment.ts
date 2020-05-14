@@ -4,11 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8000/api',
+  baseUrl: 'https://bridgepay-systems.herokuapp.com/api',
   imageUrl: 'https://bridge-pay.s3.eu-west-2.amazonaws.com/',
-  publishableKeyStripe: '',
-  paypalClientId: ''
-};
+  };
 
 /*
  * For easier debugging in development mode, you can import the following file
