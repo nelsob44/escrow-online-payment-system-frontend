@@ -7,6 +7,10 @@ app.use(express.static(__dirname + '/dist'));
 
 // Send all requests to index.html
 app.get('/*', function(req, res) {
+  if(req.headers['x-forwarded-proto'] !=='https'){
+    res.redirect(301, 'https://www.bridgepaysystems.com' + req.url);
+  }
+  
   res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
