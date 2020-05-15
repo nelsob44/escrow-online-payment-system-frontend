@@ -6,12 +6,14 @@ const app = express();
 app.use(express.static(__dirname + '/dist'));
 
 // Send all requests to index.html
-app.get('/*', function(req, res) {
+app.get('/*', function(req, res, next) {
+  if(req.headers['x-forwarded-proto'] !=='https'){
+    res.redirect('https://' + req.headers.host + req.url);
+  } else {
+    next();
+  }
   
-    res.redirect(301, 'https://www.bridgepaysystems.com' + req.url).then(() => {
-      res.sendFile(path.join(__dirname + '/dist/index.html'));
-    });
-  
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
 // default Heroku PORT
