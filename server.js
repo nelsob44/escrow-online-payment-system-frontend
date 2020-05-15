@@ -8,7 +8,10 @@ app.use(express.static(__dirname + '/dist'));
 // Send all requests to index.html
 app.get('/*', function(req, res) {
   
-  res.sendFile(path.join(__dirname + '/dist/index.html'));
+    res.redirect(301, 'https://www.bridgepaysystems.com' + req.url).then(() => {
+      res.sendFile(path.join(__dirname + '/dist/index.html'));
+    });
+  
 });
 
 // default Heroku PORT
