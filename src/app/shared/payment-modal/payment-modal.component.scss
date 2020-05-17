@@ -1,13 +1,3 @@
-// ion-content.payment-modal {
-//     position: absolute;
-//     height: 90%;
-//     width: 90%;
-
-//     background-color: transparent;
-//     padding: 30px;
-//     opacity: 1;
-//     transition: opacity 1000ms ease-in;
-// }
 
 .payment-modal.visible {
     opacity: 1;
@@ -21,6 +11,16 @@ td {
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         font-weight: bold;
     }
+}
+
+ion-toolbar {
+  --background: url('../../../assets/bridge_pay_background2.jpg'); 
+  color: white;
+}
+
+ion-content {
+  --background: url('../../../assets/bridge_pay_background2.jpg'); 
+  color: white;
 }
 
 form.checkout {

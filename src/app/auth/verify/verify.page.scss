@@ -71,3 +71,13 @@ ion-col.second-column {
 a {
     text-decoration: none;
 }
+
+ion-content.background{
+    --background: url('../../../assets/bridge_pay_background5.jpeg'); 
+    
+}
+
+ion-toolbar {
+    --background: url('../../../assets/bridge_pay_background2.jpg'); 
+    color: white;
+}

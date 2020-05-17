@@ -131,7 +131,7 @@
             <ion-item>
               <ion-label position="floating">Password</ion-label>
               <ion-input type="password" ngModel name="password"
-               required minlength="6"
+               required minlength="6" enterkeyhint="send"
                #passwordCtrl="ngModel"></ion-input>
             </ion-item>
             <ion-item line="none" *ngIf="!passwordCtrl.valid && passwordCtrl.touched">

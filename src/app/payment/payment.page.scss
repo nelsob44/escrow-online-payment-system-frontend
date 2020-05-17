@@ -47,7 +47,16 @@ ion-card-title {
 ion-card-subtitle {
     font-family: 'Courier New';
 }
+ion-content {
+    --background: url('../../assets/bridge_pay_background5.jpeg');    
+}
     
+ion-footer {
+  ion-toolbar.background{
+    --background: url('../../assets/bridge_pay_background2.jpg'); 
+    color: white;
+  }  
+}
 
 
 

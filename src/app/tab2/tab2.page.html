@@ -11,7 +11,7 @@
     </ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="onCreateItem()" [disabled]="!form?.valid">
-        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+        <ion-icon name="send" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -39,7 +39,7 @@
       <ion-col size-sm="6" offset-sm="3">
         <ion-item>
           <ion-label position="floating">Item price</ion-label>
-          <ion-input type="number" formControlName="itemPrice" min="0"></ion-input>
+          <ion-input type="number" formControlName="itemPrice" min="0" max="500"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -48,8 +48,7 @@
         <ion-item>
           <ion-label>Currency</ion-label>
           <ion-select formControlName="currency" cancelText="Cancel" okText="Okay!">
-            <ion-select-option value="GBP">British Pounds</ion-select-option>
-            <ion-select-option value="NGN">Nigerian Naira</ion-select-option>
+            <ion-select-option value="GBP">British Pounds</ion-select-option>            
             <ion-select-option value="USD">US Dollars</ion-select-option>
             <ion-select-option value="EUR">Euros</ion-select-option>             
           </ion-select>

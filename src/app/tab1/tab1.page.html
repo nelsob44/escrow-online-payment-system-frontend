@@ -9,14 +9,14 @@
     <ion-buttons slot="end" *ngIf="isLoggedIn">
       <ion-button [routerLink]="[
         '/', 'tabs', 'add-product']">
-        <ion-icon name="add"></ion-icon>
+        <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>        
     </ion-buttons>
     
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-no-padding">
+<ion-content class="ion-no-padding background">
   <ion-row>
     <ion-col size="4" class="first-column">
       <div>
@@ -105,12 +105,55 @@
           </ion-item-options>
         </ion-item-sliding>            
       </ion-list>
+      
+
+      <ion-list>
+        <div class="img" #list *ngIf="listActive">
+          <img src="../../assets/bridge_pay_mainlogo.png" class="imges"/>
+        </div>        
+        <div class="img" #list1 *ngIf="list1Active">
+          <img src="../../assets/bridge_pay_1.png" class="imges"/>
+        </div>   
+        <div class="img" #list2 *ngIf="list2Active">
+          <img src="../../assets/bridge_pay_2.png" class="imges"/>
+        </div>
+        <div class="img" #list3 *ngIf="list3Active">
+          <img src="../../assets/bridge_pay_3.png" class="imges"/>
+        </div>
+        <div class="img" #list4 *ngIf="list4Active">
+          <img src="../../assets/bridge_pay_4.png" class="imges"/>
+        </div>
+        <div class="img" #list5 *ngIf="list5Active">
+          <img src="../../assets/bridge_pay_5.png" class="imges"/>
+        </div>
+        <div class="img" #list6 *ngIf="list6Active">
+          <img src="../../assets/bridge_pay_6.png" class="imges"/>
+        </div>
+        <div class="img" #list7 *ngIf="list7Active">
+          <img src="../../assets/bridge_pay_7.png" class="imges"/>
+        </div>
+        <div class="img" #list8 *ngIf="list8Active">
+          <img src="../../assets/bridge_pay_8.png" class="imges"/>
+        </div>
+        <div class="img" #list9 *ngIf="list9Active">
+          <img src="../../assets/bridge_pay_9.png" class="imges"/>
+        </div>
+        <div class="img" #list10 *ngIf="list10Active">
+          <img src="../../assets/bridge_pay_10.png" class="imges"/>
+        </div>
+        <div class="img" #list11 *ngIf="list11Active">
+          <img src="../../assets/bridge_pay_11.png" class="imges"/>
+        </div>  
+        <div class="img" #list12 *ngIf="list12Active">
+          <img src="../../assets/bridge_pay_mainlogo.png" class="imges"/>
+        </div> 
+      </ion-list>
     </ion-col>
-  </ion-row>  
+  </ion-row> 
+  <ion-footer class="ion-no-border">
+    <ion-toolbar class="background">
+      <ion-title size="small" class="centralize"><small>Bridgepay Systems Ltd. Email: admin@bridgepaysystems.com, Phone: +44 (0)3332244129</small></ion-title>
+    </ion-toolbar>
+  </ion-footer> 
   
 </ion-content>
-<ion-footer class="ion-no-border">
-  <ion-toolbar>
-    <ion-title size="small" class="centralize"><small>Bridgepay Systems Ltd. Email: admin@bridgepaysystems.com, Phone: +44 (0)3332244129</small></ion-title>
-  </ion-toolbar>
-</ion-footer>

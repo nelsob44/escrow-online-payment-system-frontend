@@ -1,0 +1,23 @@
+ion-toolbar {
+  --background: url('../assets/bridge_pay_background2.jpg'); 
+  color: white;
+}
+
+ion-content {
+    --background: url('../assets/bridge_pay_background5.jpeg'); 
+    
+}
+
+ion-content { 
+    ion-list {
+        ion-item {
+            --background: url('../assets/bridge_pay_background5.jpeg');
+            ion-label {
+                color: blue;
+            }
+            ion-icon {
+                color: blue;
+            }
+        }
+    }        
+}

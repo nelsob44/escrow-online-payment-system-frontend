@@ -5,7 +5,7 @@
 
 ion-icon {
   font-size: 1.5rem;
-  
+  color: blue;
 }
 
 ion-badge {
@@ -29,18 +29,27 @@ ion-col.second-column {
 .centralize {
   text-align: center;
 }
+ion-toolbar {
+  --background: url('../../assets/bridge_pay_background5.jpeg'); 
+  color: blue;
+}
 
-// .modal-css {
-//     --button-color: chartreuse;
-//     background: chartreuse;
-// }
-   
-// ion-card-title {
-//     font-family: 'Courier New';
-//     font-weight: bolder;
+.img{
+    width: 100%;
+    height: fit-content;     
+}
+.imges {
+  border-radius: 10px;
+}
 
-// }
+ion-content.background{
+    --background: url('../../assets/bridge_pay_background5.jpeg'); 
+    
+}
 
-// ion-card-subtitle {
-//     font-family: 'Courier New';
-// }
+ion-footer {
+  ion-toolbar.background{
+    --background: url('../../assets/bridge_pay_background1.png'); 
+    color: white;
+  }  
+}

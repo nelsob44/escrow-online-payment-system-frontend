@@ -27,3 +27,12 @@ ion-col.second-column {
   min-width: 310px;
 }
 
+ion-toolbar {
+  --background: url('../../../assets/bridge_pay_background2.jpg'); 
+  color: white;
+}
+
+ion-content {
+    --background: url('../../../assets/bridge_pay_background5.jpeg'); 
+    
+}

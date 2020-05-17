@@ -45,8 +45,14 @@ ion-icon {
 
 ion-list {
     min-width: 300px;
-}
-    
-
-
-
+    --background: url('../../../../assets/bridge_pay_background5.jpeg');
+    ion-item {
+        --background: url('../../../../assets/bridge_pay_background5.jpeg');
+        ion-label {
+            color: blue;
+        }
+        ion-text {
+            color: white;
+        }
+    }
+}        
