@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Home
+      Bridgepay
     </ion-title>
     <ion-buttons slot="end" *ngIf="isLoggedIn">
       <ion-button [routerLink]="[
@@ -34,6 +34,11 @@
         </ion-card>
         
       </div>
+      <ion-row>
+        <ion-col>
+          <a class="banner_btn" (click)="onExplore()">Browse App</a>
+        </ion-col>
+      </ion-row>
     </ion-col>
     <ion-col size-sm="12" size-md="8" size-lg="8"> 
       <ion-grid>
@@ -108,45 +113,55 @@
       
 
       <ion-list>
-        <div class="img" #list *ngIf="listActive">
-          <img src="../../assets/bridge_pay_mainlogo.png" class="imges"/>
-        </div>        
-        <div class="img" #list1 *ngIf="list1Active">
-          <img src="../../assets/bridge_pay_1.png" class="imges"/>
-        </div>   
-        <div class="img" #list2 *ngIf="list2Active">
-          <img src="../../assets/bridge_pay_2.png" class="imges"/>
-        </div>
-        <div class="img" #list3 *ngIf="list3Active">
-          <img src="../../assets/bridge_pay_3.png" class="imges"/>
-        </div>
-        <div class="img" #list4 *ngIf="list4Active">
-          <img src="../../assets/bridge_pay_4.png" class="imges"/>
-        </div>
-        <div class="img" #list5 *ngIf="list5Active">
-          <img src="../../assets/bridge_pay_5.png" class="imges"/>
-        </div>
-        <div class="img" #list6 *ngIf="list6Active">
-          <img src="../../assets/bridge_pay_6.png" class="imges"/>
-        </div>
-        <div class="img" #list7 *ngIf="list7Active">
-          <img src="../../assets/bridge_pay_7.png" class="imges"/>
-        </div>
-        <div class="img" #list8 *ngIf="list8Active">
-          <img src="../../assets/bridge_pay_8.png" class="imges"/>
-        </div>
-        <div class="img" #list9 *ngIf="list9Active">
-          <img src="../../assets/bridge_pay_9.png" class="imges"/>
-        </div>
-        <div class="img" #list10 *ngIf="list10Active">
-          <img src="../../assets/bridge_pay_10.png" class="imges"/>
-        </div>
-        <div class="img" #list11 *ngIf="list11Active">
-          <img src="../../assets/bridge_pay_11.png" class="imges"/>
-        </div>  
-        <div class="img" #list12 *ngIf="list12Active">
-          <img src="../../assets/bridge_pay_mainlogo.png" class="imges"/>
-        </div> 
+        <ion-row>
+          <ion-col>
+            <div class="img">
+              <img src="../../assets/right-mobile.png" class="imges"/>
+            </div>
+          </ion-col>
+          <ion-col>             
+            <div class="img" #list *ngIf="listActive">
+              <img src="../../assets/bridge_pay_mainlogo.png" class="imges"/>
+            </div>        
+            <div class="img" #list1 *ngIf="list1Active">
+              <img src="../../assets/bridge_pay_1.png" class="imges"/>
+            </div>   
+            <div class="img" #list2 *ngIf="list2Active">
+              <img src="../../assets/bridge_pay_2.png" class="imges"/>
+            </div>
+            <div class="img" #list3 *ngIf="list3Active">
+              <img src="../../assets/bridge_pay_3.png" class="imges"/>
+            </div>
+            <div class="img" #list4 *ngIf="list4Active">
+              <img src="../../assets/bridge_pay_4.png" class="imges"/>
+            </div>
+            <div class="img" #list5 *ngIf="list5Active">
+              <img src="../../assets/bridge_pay_5.png" class="imges"/>
+            </div>
+            <div class="img" #list6 *ngIf="list6Active">
+              <img src="../../assets/bridge_pay_6.png" class="imges"/>
+            </div>
+            <div class="img" #list7 *ngIf="list7Active">
+              <img src="../../assets/bridge_pay_7.png" class="imges"/>
+            </div>
+            <div class="img" #list8 *ngIf="list8Active">
+              <img src="../../assets/bridge_pay_8.png" class="imges"/>
+            </div>
+            <div class="img" #list9 *ngIf="list9Active">
+              <img src="../../assets/bridge_pay_9.png" class="imges"/>
+            </div>
+            <div class="img" #list10 *ngIf="list10Active">
+              <img src="../../assets/bridge_pay_10.png" class="imges"/>
+            </div>
+            <div class="img" #list11 *ngIf="list11Active">
+              <img src="../../assets/bridge_pay_11.png" class="imges"/>
+            </div>  
+            <div class="img" #list12 *ngIf="list12Active">
+              <img src="../../assets/bridge_pay_mainlogo.png" class="imges"/>
+            </div>            
+          </ion-col>
+        </ion-row>
+         
       </ion-list>
     </ion-col>
   </ion-row> 

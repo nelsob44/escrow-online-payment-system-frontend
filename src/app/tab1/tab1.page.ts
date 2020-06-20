@@ -371,6 +371,10 @@ export class Tab1Page implements OnInit, OnDestroy{
     this.router.navigate(['/tabs/add-product']);
   }
 
+  onExplore() {
+    this.router.navigate(['/login']);
+  }
+
   onClickViewPayments() {
     this.router.navigate(['/payment']);
   }
