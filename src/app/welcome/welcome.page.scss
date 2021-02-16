@@ -1,0 +1,50 @@
+.welcome-card img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+ion-icon {
+  font-size: 1.5rem;
+  color: blue;
+}
+
+ion-badge {
+    margin: 3px;
+}
+
+ion-col.first-column {
+    
+    @media only screen and (max-width: 768px) {
+        display: none;        
+    }
+}
+
+ion-button.buttonRight {
+    float: right;
+}
+
+ion-col.second-column {
+  min-width: 310px;
+}
+.centralize {
+  text-align: center;
+}
+ion-toolbar {
+  --background: url('../../assets/bridge_pay_background1.png'); 
+  color: rgb(247, 247, 253);
+}
+
+.img{
+    width: 100%;
+    height: fit-content;         
+}
+.imges {
+  border-radius: 10px;
+}
+
+ion-footer {
+  ion-toolbar.background{
+    --background: url('../../assets/bridge_pay_background1.png'); 
+    color: white;
+  }  
+}

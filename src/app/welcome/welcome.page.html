@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>welcome</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-no-padding background">
+  <ion-row>
+    <ion-col size="4" class="first-column">
+             
+        <ion-button  *ngIf="isLoggedIn" size="default" color="tertiary" (click)="onCreateItem()">Create New Item</ion-button>
+      
+      <!-- <ion-row>
+        <ion-col>
+          <ion-button size="default" color="tertiary" (click)="addNewItem()">Add Item for sale</ion-button>
+        </ion-col>
+      </ion-row> -->
+    </ion-col>
+    <ion-col size-sm="12" size-md="8" size-lg="8" class="second-column"> 
+      <ion-grid>
+        <ion-row class="ion-align-items-start">
+          <ion-col *ngIf="userName" size-sm="4">
+            <ion-card-subtitle color="primary">Hi, <i>{{userName | titlecase}}!</i></ion-card-subtitle> 
+          </ion-col>
+          
+          <ion-col size-sm="4">
+            <ion-card-subtitle color="primary">Refresh search</ion-card-subtitle> 
+            <ion-toggle (ionChange)="refreshFilter()"></ion-toggle>     
+          </ion-col>
+        </ion-row>        
+      </ion-grid>
+      <form [formGroup]="form">
+        <ion-row>
+          <ion-col size-sm="12">
+            <ion-item>
+              <ion-label position="stacked">Enter the ID of item to search</ion-label>
+              <ion-buttons slot="end">
+                <ion-button color="primary">
+                  <ion-icon name="send"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+
+              <ion-input formControlName="itemId" minlength="1"></ion-input>
+            </ion-item>
+            <ion-searchbar showCancelButton="never"></ion-searchbar>
+          </ion-col>
+        </ion-row>
+      </form>
+
+      <!-- <form [formGroup]="formtwo">
+        <ion-row>
+          <ion-col size-sm="12">
+            <ion-item>
+              <ion-label position="floating">Item name</ion-label>
+              <ion-input formControlName="itemName" minlength="1"></ion-input>
+            </ion-item>
+          </ion-col>          
+        </ion-row>
+
+        <ion-row>         
+          <ion-col size-sm="12">
+            <ion-item>
+              <ion-label>Category</ion-label>
+              <ion-select interface="popover" formControlName="category">
+                <ion-select-option value="allCategories">All Categories</ion-select-option>
+                <ion-select-option value="antiques">Antiques</ion-select-option>
+                <ion-select-option value="art">Art</ion-select-option>
+                <ion-select-option value="baby">Baby</ion-select-option>
+                <ion-select-option value="booksComicsMag">Books, Comics & Magazines</ion-select-option>
+                <ion-select-option value="businessOfficeIndustrial">Business, Office & Industrial</ion-select-option>
+                <ion-select-option value="camerasPhotography">Cameras & Photography</ion-select-option>
+                <ion-select-option value="carsMotorcyclesVehicles">Cars, Motorcycles & Vehicles</ion-select-option>
+                <ion-select-option value="clothesShoesAccessories">Clothes, Shoes & Accessories</ion-select-option>
+                <ion-select-option value="coins">Coins</ion-select-option>
+                <ion-select-option value="collectibles">Collectibles</ion-select-option>
+                <ion-select-option value="computersTabsNetworking">Computers/Tablets & Networking</ion-select-option>
+                <ion-select-option value="crafts">Crafts</ion-select-option>
+                <ion-select-option value="dollsBears">Dolls & Bears</ion-select-option>
+                <ion-select-option value="dvdsFilmsTv">DVDs, Films & TV</ion-select-option>
+                <ion-select-option value="eventTickets">Events Tickets</ion-select-option>
+                <ion-select-option value="gardenPation">Garden & Patio</ion-select-option>
+                <ion-select-option value="holidaysTravel">Holidays & Travel</ion-select-option>
+                <ion-select-option value="homeFurnitureDiy">Home, Furniture & DIY</ion-select-option>
+                <ion-select-option value="jewelleryWatches">Jewellery & Watches</ion-select-option>
+                <ion-select-option value="mobilePhonesCommunication">Mobile Phones & Communication</ion-select-option>
+                <ion-select-option value="music">Music</ion-select-option>
+                <ion-select-option value="musicalInstruments">Musical Instruments</ion-select-option>
+                <ion-select-option value="petSupplies">Pet Supplies</ion-select-option>
+                <ion-select-option value="potteryPorcelainGlass">Pottery, Porcelain & Glass</ion-select-option>
+                <ion-select-option value="property">Property</ion-select-option>
+                <ion-select-option value="soundVision">Sound & Vision</ion-select-option>
+                <ion-select-option value="sportingGoods">Sporting Goods</ion-select-option>
+                <ion-select-option value="sportsMemorabilia">Sports Memorabilia</ion-select-option>
+                <ion-select-option value="stamps">Stamps</ion-select-option>
+                <ion-select-option value="toysGames">Toys & Games</ion-select-option>
+                <ion-select-option value="vehiclePartsAccessories">Vehicle Parts & Accessories</ion-select-option>
+                <ion-select-option value="videoGamesConsoles">Video Games & Consoles</ion-select-option>
+                <ion-select-option value="wholesaleJobLots">Wholesale & Job Lots</ion-select-option>
+                <ion-select-option value="everythingElse">Everything Else</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-sm="12">
+            <ion-item>
+              <ion-label position="floating">Describe item here</ion-label>
+              <ion-textarea formControlName="itemDescription" minlength="5"></ion-textarea>            
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>          
+          <ion-col size-sm="6">
+            <ion-item>
+              <ion-label>Click to Choose Colour</ion-label>         
+            </ion-item>
+          </ion-col>
+          <ion-col size-sm="6">
+            <ion-item>
+              <input formControlName="itemColour" type="color">         
+            </ion-item>            
+          </ion-col>
+        </ion-row>
+
+        
+         
+      </form> -->
+      
+    </ion-col>
+  </ion-row> 
+    
+</ion-content>
+
+  <!-- <ion-footer class="ion-no-border">
+    <ion-toolbar class="background">
+      <ion-title size="small" class="centralize"><small>Bridgepay Systems Ltd. Email: admin@bridgepaysystems.com, Phone: +44 (0)3332244129</small></ion-title>
+    </ion-toolbar>
+  </ion-footer>  -->

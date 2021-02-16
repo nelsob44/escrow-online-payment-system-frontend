@@ -28,7 +28,7 @@ export class Tab1Page implements OnInit, OnDestroy{
   @ViewChild('list9', { read: ElementRef, static: false}) list9: ElementRef;
   @ViewChild('list10', { read: ElementRef, static: false}) list10: ElementRef;
   @ViewChild('list11', { read: ElementRef, static: false}) list11: ElementRef;
-   @ViewChild('list12', { read: ElementRef, static: false}) list12: ElementRef;
+  @ViewChild('list12', { read: ElementRef, static: false}) list12: ElementRef;
  
   form: FormGroup;
   loadedItems: Item[];
@@ -372,7 +372,7 @@ export class Tab1Page implements OnInit, OnDestroy{
   }
 
   onExplore() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/welcome']);
   }
 
   onClickViewPayments() {

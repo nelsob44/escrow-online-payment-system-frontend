@@ -61,6 +61,10 @@ const routes: Routes = [
     path: 'verify', 
     loadChildren: './auth/verify/verify.module#VerifyPageModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'welcome',
+    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule)
   }
 ];
 @NgModule({

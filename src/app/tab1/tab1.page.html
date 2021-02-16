@@ -19,24 +19,14 @@
 <ion-content class="ion-no-padding background">
   <ion-row>
     <ion-col size="4" class="first-column">
-      <div>
-        <ion-card *ngIf="isLoggedIn">
-          <ion-item (click)="onCreateItem()">
-            <ion-chip color="tertiary">
-              <ion-label color="dark"><ion-card-title>Create New Item</ion-card-title></ion-label>
-            </ion-chip>
-          </ion-item>                    
-        </ion-card>
-        <ion-card (click)="onClickViewPayments()">          
-          <ion-chip color="tertiary">
-            <ion-label color="dark"><ion-card-title>Pending payments</ion-card-title></ion-label>
-          </ion-chip>                              
-        </ion-card>
-        
+      <div>        
+        <ion-button  *ngIf="isLoggedIn" size="default" color="tertiary" (click)="onCreateItem()">Create New Item</ion-button>
+                
+        <ion-button size="default" color="tertiary" (click)="onClickViewPayments()">Pending payments</ion-button>        
       </div>
       <ion-row>
         <ion-col>
-          <a class="banner_btn" (click)="onExplore()">Browse App</a>
+          <ion-button size="default" color="tertiary" (click)="onExplore()">Browse For Sale</ion-button>
         </ion-col>
       </ion-row>
     </ion-col>
@@ -115,9 +105,9 @@
       <ion-list>
         <ion-row>
           <ion-col>
-            <div class="img">
+            <!-- <div class="img">
               <img src="../../assets/right-mobile.png" class="imges"/>
-            </div>
+            </div> -->
           </ion-col>
           <ion-col>             
             <div class="img" #list *ngIf="listActive">
@@ -165,10 +155,11 @@
       </ion-list>
     </ion-col>
   </ion-row> 
+    
+</ion-content>
+
   <ion-footer class="ion-no-border">
     <ion-toolbar class="background">
       <ion-title size="small" class="centralize"><small>Bridgepay Systems Ltd. Email: admin@bridgepaysystems.com, Phone: +44 (0)3332244129</small></ion-title>
     </ion-toolbar>
   </ion-footer> 
-  
-</ion-content>
